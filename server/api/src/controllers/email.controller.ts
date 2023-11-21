@@ -8,6 +8,7 @@ const PORT = parseInt(process.env.PORT, 10) || 80;
 const HOSTNAME = process.env.HOSTNAME;
 const IS_DEBUG = Boolean(process.env.IS_DEBUG) ?? false;
 
+
 exports.sendEmail = async (req, res, next) => {
   try {
     if (IS_DEBUG) message(MODULE, `sendEmail |`, TMessage.INFO);
@@ -36,3 +37,4 @@ console.log(response);
     res.status(500).json({ error: err.message });
   }
 };
+

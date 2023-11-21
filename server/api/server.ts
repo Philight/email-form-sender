@@ -7,6 +7,7 @@ import path from 'path';
 import http from 'http';
 
 import apiRouter from './src/routes/email.routes';
+import authRouter from './src/routes/auth.routes';
 import { mailerClient, mailerSend } from './src/utils/connectGRPC';
 import { getDateTime } from './src/utils/date';
 import { message, TMessage } from './src/utils/logger';
@@ -84,6 +85,7 @@ console.log(`### ${MODULE} | GET / "APP ROOT"`);
     })
 
     .use('/api/v1', apiRouter)
+    .use('/auth/v1', authRouter)
 
 
 /********** 

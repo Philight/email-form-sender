@@ -1,0 +1,68 @@
+@import './theme';
+
+/** 
+ * GRAPHIC
+ */
+
+.image__c {
+  @apply relative h-full w-full;
+}
+
+.loader__c {
+  .loader__background {
+    @apply bg-[#03002e];
+  }
+  .icon__c {
+    @apply h-20 w-20;
+    .icon {
+      @apply bg-[#ff0000];
+    }
+  }
+
+  .image__c {
+    @apply h-16 w-16;
+  }
+}
+
+.icon__c {
+  @apply h-5 w-5;
+  &:not(.multi-color) .icon:not(svg) {
+    @apply h-full w-full bg-black;
+  }
+  .multi-color svg {
+    @apply bg-transparent;
+  }
+}
+
+.layer__c {
+  &.stripe {
+    @apply top-0 -z-10 h-1/2 translate-y-0 bg-black-primary;
+  }
+}
+
+/** 
+ * LAYOUT
+ */
+
+/* SECTIONS/BLOCKS */
+
+
+/** 
+ * PLUGIN  
+ */
+ 
+.style-guide__c {
+  .style-guide__font-sizes {
+    font-family: Monospace;
+    table {
+      @apply py-2;
+    }
+    th {
+      @apply min-w-[140px] text-center;
+      @apply border-x-0 border-t-0 border-b border-black border-solid;
+    }
+    td {
+      @apply text-center;
+    }
+  }
+}

@@ -39,27 +39,12 @@ client.waitForReady(deadline, (err) => {
 });
 
 
-const verifyEmail = () => {
-  const testEmailBody = {
-    'from': 'obd.sf.test01@gmail.com',
-    'to': 'lai.filip@gmail.com',
-    'cc': ['test01@gmail.com', 'test02@gmail.com', 'test03@gmail.com'],
-    'subject': 'subject',
-    'body': 'Lorem ipsum..',
-    'attachments': '',
-  }
+/********** 
+ * gRPC FUNCTIONS
+*********/
 
-  client.sendEmail(testEmailBody, (err, res) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(res);
-  });
-}
-
-const sendEmail = (emailBody) => {
-  client.sendEmail(emailBody, (err, res) => {
+const signUpUser = (user) => {
+  client.signUpUser(user, (err, res) => {
     if (err) {
       console.error(err);
       return;
@@ -69,8 +54,69 @@ const sendEmail = (emailBody) => {
   });
 }
 
+const verifyEmail = () => {
+  client.verifyEmail(null, (err, res) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(res);
+  });
+}
+
+const signInUser = (user) => {
+  client.signInUser(user, (err, res) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(res);
+    return res;
+  });
+}
+
+const refreshToken = (refreshToken) => {
+  client.refreshToken({ refresh_token: refreshToken }, (err, res) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(res);
+    return res;
+  });
+}
+
+const getMe = (user) => {
+  client.getMe(user, (err, res) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(res);
+    return res;
+  });
+}
+
+const sendEmail = (email) => {
+  client.sendEmail(email, (err, res) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(res);
+    return res;
+  });
+}
+
+
+
+
 export {
   client as mailerClient,
+  signUpUser as mailerSignUp,
   verifyEmail as mailerVerify,
+  signInUser as mailerSignIn,
+  refreshToken as mailerRefreshToken,
+  getMe as mailerGetMe,
   sendEmail as mailerSend,
 }

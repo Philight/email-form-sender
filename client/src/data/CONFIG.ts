@@ -1,0 +1,4 @@
+export const CONSTANTS = {
+  PAGINATION_POSTS: 20,
+  PAGINATION_MAX_POSTS: 200,
+};

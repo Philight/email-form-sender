@@ -9,10 +9,9 @@ export const sendEmailHandler = async (
 ) => {
   try {
 
-    // Verify email ?
 console.log('email.controller | req.request')
 console.log(req.request)
-    await new Email(req.request).sendEmail(req.request.subject);
+    await new Email({ email: req.request }).sendEmail(req.request.subject);
     res(null, { status: 'success', message: `Email to ${req.request.to} sent.` });
 
   } catch (err: any) {

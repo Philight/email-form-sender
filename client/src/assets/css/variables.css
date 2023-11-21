@@ -1,0 +1,67 @@
+:root {
+  /** 
+    FONT 
+  */
+  --font-sans-serif: sans-serif;
+  --font-serif: serif;
+  
+  --font-julius: 'Julius Sans One';
+  --font-archivo: 'Archivo';
+  --font-crimson: 'Crimson Text';
+  --font-felix: 'Felix Titling';
+
+  --font-family-heading: var(--font-julius), 'Century Schoolbook', sans-serif;
+  --font-family-subheading: var(--font-archivo), 'Century Schoolbook', sans-serif;
+  --font-family-body: var(--font-crimson), 'Cervo', serif;
+  --font-family-btn: var(--font-felix), 'Cervo', serif;
+  --font-family-emphasis: var(--font-felix), 'Cervo', serif;
+
+  /** 
+    COLOR 
+  */
+
+  --color-red: 255 0 0;
+  --color-green: 0 255 0;
+  --color-blue: 0 0 255;
+  --color-white: 255 255 255;
+  --color-black: 0 0 0;  
+  --color-gray: 197 197 197;
+  --color-gray-light: 241 241 241;
+  --color-gray-dark: 159 159 159;
+
+  --color-white-primary: 255 255 255;
+  --color-black-primary: 0 0 0;
+  --color-snow: 209 239 255;
+
+  --color-primary: var(--color-hermes-orange);
+  --color-secondary: var(--color-hermes-orange);
+  --color-tertiary: var(--color-hermes-orange);
+
+  /** 
+    LAYOUT 
+  */
+
+  --max-width: 1440px;
+
+  --gutter-outer-x: 24px;
+  --gutter-outer-y: 40px;
+  --navigation-height: 57px;
+  --announcement-height: 0px;
+
+/*
+  --gutter-section: 16px;
+*/
+
+  @media screen(tab-sm) {
+    --gutter-outer-x: 36px;
+    --navigation-height: 64px;
+  }
+  @media screen(desk-sm) {
+    --gutter-outer-x: 64px;
+    --navigation-height: 80px;
+  }
+  @media screen(desk-lg) {
+    --gutter-outer-x: 80px;
+    --navigation-height: 84px;
+  }
+}

@@ -1,36 +1,55 @@
 import path from 'path';
-import { message, TMessage } from '../utils/logger';
+import { message, TMessage, printObject } from '../utils/logger';
 import Joi from 'joi';
 
-const schema = Joi.object({
-    username: Joi.string()
-        .alphanum()
-        .min(3)
-        .max(30)
-        .required(),
+const IS_DEBUG = Boolean(process.env.IS_DEBUG) ?? false;
+const MODULE = path.basename(__filename).replace('.js', '');
 
-    password: Joi.string()
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+const validationSchema = Joi.object({
+  from: Joi.string()
+    .email({ minDomainSegments: 2 })
+    .required(),
 
-    repeat_password: Joi.ref('password'),
+  to: Joi.string()
+    .email({ minDomainSegments: 2 })
+    .required(),
 
-    access_token: [
-        Joi.string(),
-        Joi.number()
-    ],
+  cc: Joi.string()
+    .email({ minDomainSegments: 2, multiple: true  }),
 
-    birth_year: Joi.number()
-        .integer()
-        .min(1900)
-        .max(2013),
+  subject: Joi.string()
+    .min(5)
+    .required(), 
 
-    email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
-})
+  body: Joi.string()
+    .min(10)
+    .required(), 
+
+  attachments: Joi.array()
+    .items(Joi.string()
+      .uri()
+    ),    
+}).options({ abortEarly: false })
 
 
 export const validateEmailFields = async (req, res, next) => {
-//    message('REQUEST | '+MODULE, `${req['method']} ${req['originalUrl']}`, TMessage.INFO); 
-  req.body
-  next();
+  if (IS_DEBUG) message(MODULE, `validateEmailFields |`, TMessage.INFO);
+console.log('validateEmailFields body');
+console.log(req.body);
+  const { error: validationErrors } = validationSchema.validate(req.body);
+  if (validationErrors) { 
+    const response = {
+      error: 'Validation error',
+      fields: {},
+    };
+    for (const field of validationErrors.details) {
+      response.fields[field.context.key] = field.message;
+    }
+    message(MODULE, `validateEmailFields >> `, TMessage.ERROR);
+    printObject(response);
+    res.statusMessage = TMessage.ERROR;
+    res.status(400).json(response);
+  } else {
+    next();
+  }
 }

@@ -19,7 +19,3 @@ message UserResponse {
   User user = 1; 
 }
 
-message GenericResponse {
-  string status = 1;
-  string message = 2;
-}

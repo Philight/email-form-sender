@@ -21,6 +21,10 @@ import { VerifyEmailInput__Output } from '../../pb/auth/VerifyEmailInput';
 import { GenericResponse } from '../../pb/auth/GenericResponse';
 import Email from '../utils/email';
 
+const HOSTNAME = customConfig.hostname;
+const API_PORT = customConfig.apiPort;
+const VERIFY_EMAIL = customConfig.routes.auth.verifyEmail;
+
 export const registerHandler = async (
   req: grpc.ServerUnaryCall<SignUpUserInput__Output, SignUpUserResponse>,
   res: grpc.sendUnaryData<GenericResponse>
@@ -45,9 +49,9 @@ export const registerHandler = async (
       { id: user.id },
       { verification_code: hashed_verification_code }
     );
-    const redirectUrl = `https://localhost:3000/api/verifyemail?code=${verification_code}`;
+    const redirectUrl = `http://${HOSTNAME}:${API_PORT}${VERIFY_EMAIL}?code=${verification_code}`;
     try {
-      await new Email(user, redirectUrl).sendVerificationCode();
+      await new Email({ user, redirectUrl }).sendVerificationCode();
       res(null, { status: 'success', message: 'Email verification code sent' });
     } catch (error: any) {
       await updateUser({ id: user.id }, { verification_code: null });

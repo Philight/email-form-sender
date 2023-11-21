@@ -20,7 +20,6 @@ message GetMeInput { string access_token = 1; }
 message RefreshTokenInput { string refresh_token = 1; }
 message VerifyEmailInput { string verification_code = 1; }
 
-
 message SendEmailInput {
   string from = 1;
   string to = 2;
@@ -36,3 +35,7 @@ message RefreshTokenResponse {
   string refresh_token = 2;
 }
 
+message GenericResponse {
+  string status = 1;
+  string message = 2;
+}

@@ -7,24 +7,35 @@ import customConfig from '../config/default';
 const smtp = customConfig.smtp;
 
 export default class Email {
-//  firstName: string;
+  firstName?: string;
+  redirectUrl?: string;
 
-  from: string;
-  to: string;
+  from?: string;
+  to?: string;
   cc?: string | string[];
-  subject: string;
-  body: string;
+  subject?: string;
+  body?: string;
   attachments?: string[];
 
-  constructor(email: any) {
-console.log('Email class constructor');
-console.log(email);
-    this.from = email.from;
-    this.to = email.to;
-    this.cc = email.cc;
-    this.subject = email.subject;
-    this.body = email.body;
-    this.attachments = email.attachments;
+  constructor(args: any) {
+console.log('Email class constructor args');
+console.log(args);
+    const { email, user, redirectUrl } = args;
+
+    if (email) {
+      this.from = email?.from;
+      this.to = email?.to;
+      this.cc = email?.cc;
+      this.subject = email?.subject;
+      this.body = email?.body;
+      this.attachments = email?.attachments;
+
+    } else if (user) {
+      this.firstName = user.name.split(' ')[0];
+      this.redirectUrl = redirectUrl;
+      this.from = `Admin ${customConfig.emailFrom}`;
+      this.to = user.email;
+    }
   }
 
   private newTransport() {
@@ -45,9 +56,9 @@ console.log(email);
 console.log('Email class send');
     // Generate HTML template based on the template string
     const html = pug.renderFile(`${__dirname}/../views/${template}.pug`, {
-//      firstName: this.firstName,
+      firstName: this.firstName,
       subject,
-      url: this.url,
+      redirectUrl: this.redirectUrl,
     });
 
     // Create mailOptions
@@ -70,18 +81,10 @@ console.log('Email class send');
   }
 
   async sendPasswordResetToken() {
-    await this.send(
-      'resetPassword',
-      'Your password reset token (valid for only 10 minutes)'
-    );
+    await this.send('resetPassword', 'Your password reset token (valid for only 10 minutes)');
   }
 
-
-
   async sendEmail(subject?: string) {
-    await this.send(
-      'fullEmail', 
-      subject ?? 'Default: Email subject'
-    );
+    await this.send('fullEmail', subject ?? 'Default: Email subject');
   }
 }

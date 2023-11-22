@@ -2,23 +2,16 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const LandingLayout = lazy(() => import('@layouts/LandingLayout'));
-const AboutLayout = lazy(() => import('@layouts/AboutLayout'));
+const AuthLayout = lazy(() => import('@layouts/AuthLayout'));
+const HomeLayout = lazy(() => import('@layouts/HomeLayout'));
 const ContactLayout = lazy(() => import('@layouts/ContactLayout'));
 
-// const LandingPage = lazy(() => import("@pages").then((module) => ({ default: module.LandingPage }) ));
-// const LandingPage = lazy(() => import("@pages").then( (module) => module.LandingPage ));
-/*
-Promise.all(
-  Array.from({ length: 10 }).map((_, index) =>
-    import(`/modules/module-${index}.js`),
-  ),
-).then((modules) => modules.forEach((module) => module.load()));
-*/
 const StyleGuide = lazy(() => import('@pages/StyleGuide'));
 const LandingPage = lazy(() => import('@pages/LandingPage'));
 const AboutPage = lazy(() => import('@pages/AboutPage'));
 const ContactPage = lazy(() => import('@pages/ContactPage'));
 
+import { DataProvider } from '@contexts/DataContext';
 import { Loader } from '@components/graphic';
 import ScrollToTop from '@components/util/ScrollToTop';
 
@@ -27,51 +20,53 @@ import { CONSTANTS } from '@data/CONSTANTS';
 import { dynamicImport } from '@utils/dynamicImport';
 
 const ROUTE_TO_PAGE = {
-  'LANDING' : {
+  LANDING: {
     '/': 'LandingPage',
   },
-  'ABOUT' : {
-    '/about': 'AboutPage',
-    '/contact': 'ContactPage',
+  AUTH: {
+    '/login': 'AuthPage',
+    '/register': 'AuthPage',
+  },
+  FORM: {
+    '/form': 'FormPage',
   },
 };
 
 const ROUTES = {
-  'LANDING': Object.keys(ROUTE_TO_PAGE['LANDING']),
-  'ABOUT': Object.keys(ROUTE_TO_PAGE['ABOUT']),
+  LANDING: Object.keys(ROUTE_TO_PAGE.LANDING),
+  AUTH: Object.keys(ROUTE_TO_PAGE.AUTH),
+  FORM: Object.keys(ROUTE_TO_PAGE.FORM),
 };
 
-const landingLayoutImports = dynamicImport(ROUTE_TO_PAGE['LANDING'], { prefix: 'pages' });
-const aboutLayoutImports = dynamicImport(ROUTE_TO_PAGE['ABOUT'], { prefix: 'pages' });
+const landingLayoutImports = dynamicImport(ROUTE_TO_PAGE.LANDING, { prefix: 'pages' });
+const authLayoutImports = dynamicImport(ROUTE_TO_PAGE.AUTH, { prefix: 'pages' });
+const formLayoutImports = dynamicImport(ROUTE_TO_PAGE.FORM, { prefix: 'pages' });
 
 const App = () => {
   return (
     <BrowserRouter basename={PACKAGE_JSON.config.BASENAME}>
       <ScrollToTop>
         <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route element={<LandingLayout />}>
-{/*
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-*/}            
-              {ROUTES['LANDING'].map((route, i) => (
-                <Route key={i} path={route} Component={landingLayoutImports[route]} />
-              ))}
-            </Route>
-            <Route element={<AboutLayout />}>
-              {ROUTES['ABOUT'].map((route, i) => (
-                <Route key={i} path={route} Component={aboutLayoutImports[route]} />
-              ))}            
-            </Route>
-{/*
-        <Route path="/v2" element={<LandingLayout Page={LandingPage} />} />
-        <Route path="/v2/about" element={<AboutLayout Page={AboutPage} />} />
-        <Route path="/v2/contact" element={<ContactLayout Page={ContactPage} />} />
-*/}
-          <Route path="/style-guide" element={<StyleGuide />} />            
-          </Routes>
+          <DataProvider>
+            <Routes>
+              <Route element={<LandingLayout />}>
+                {ROUTES.LANDING.map((route, i) => (
+                  <Route key={i} path={route} Component={landingLayoutImports[route]} />
+                ))}
+              </Route>
+              <Route element={<AuthLayout />}>
+                {ROUTES.AUTH.map((route, i) => (
+                  <Route key={i} path={route} Component={authLayoutImports[route]} />
+                ))}
+              </Route>
+              <Route element={<LandingLayout />}>
+                {ROUTES.FORM.map((route, i) => (
+                  <Route key={i} path={route} Component={formLayoutImports[route]} />
+                ))}
+              </Route>
+              <Route path="/style-guide" element={<StyleGuide />} />
+            </Routes>
+          </DataProvider>
         </Suspense>
       </ScrollToTop>
     </BrowserRouter>

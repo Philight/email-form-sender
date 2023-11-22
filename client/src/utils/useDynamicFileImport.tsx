@@ -27,7 +27,7 @@ export const useDynamicFileImport = (fileName: string, options?: IOptions = {}) 
     setLoading(true);
     const importIcon = async (): Promise<void> => {
       try {
-/*
+        /*
         ImportedIconRef.current = (await import(PATH_OPTIONS[fileType])).ReactComponent;
 */
         const { default: namedImport } = await import(PATH_OPTIONS[fileType]);

@@ -22,7 +22,8 @@ const validationSchema = Joi.object({
   passwordConfirm: Joi.any()
     .valid(Joi.ref('password'))
     .required()
-    .options({ language: { any: { allowOnly: 'must match password' } } }),
+    .label('Confirm password')
+    .messages({ 'any.only': '{{#label}} does not match' }),
 
   photo: Joi.string()
     .uri(),

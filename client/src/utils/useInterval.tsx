@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 export const useInterval = (callback, delay) => {
   const intervalRef = useRef(null);
   const savedCallback = useRef(callback);
-  
+
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
@@ -16,4 +16,4 @@ export const useInterval = (callback, delay) => {
     }
   }, [delay]);
   return intervalRef;
-}
+};

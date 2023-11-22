@@ -15,14 +15,14 @@ import {
 
 import { Envelopes } from '@components/animated/Envelopes';
 import { Layer, Icon } from '@components/graphic';
-import { Footer } from '@components/layout';
+import { Header, Footer } from '@components/layout';
 
 import { Props } from 'default-types';
 interface LayoutProps extends Props {
   Page?: React.FC | React.Component | React.ReactNode;
 }
 
-const LandingLayout = ({ Page, ...rest }: LayoutProps) => {
+const AuthLayout = ({ Page, ...rest }: LayoutProps) => {
   const { className } = rest;
 
   const [{ img, page }, setState] = React.useState({});
@@ -30,12 +30,12 @@ const LandingLayout = ({ Page, ...rest }: LayoutProps) => {
   const setPageData = React.useCallback(({ img, page }) => setState({ img, page }), []);
 
   return (
-    <div className={['landing-layout__c layout', className].css()}>
+    <div className={['auth-layout__c layout', className].css()}>
       <Layer className={['background gradient '].css()} />
       <Box className={['overlay abs-fill'].css()} />
-
       <Envelopes />
 
+      <Header />
       {Page && <Page />}
       <Outlet context={{ setPageData }} />
       <Footer />
@@ -43,4 +43,4 @@ const LandingLayout = ({ Page, ...rest }: LayoutProps) => {
   );
 };
 
-export default LandingLayout;
+export default AuthLayout;

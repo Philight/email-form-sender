@@ -3,18 +3,16 @@
     FONT 
   */
   --font-sans-serif: sans-serif;
-  --font-serif: serif;
-  
-  --font-julius: 'Julius Sans One';
-  --font-archivo: 'Archivo';
-  --font-crimson: 'Crimson Text';
-  --font-felix: 'Felix Titling';
+  --font-serif: 'Century Schoolbook', serif;
+  --font-mono: monospace;
 
-  --font-family-heading: var(--font-julius), 'Century Schoolbook', sans-serif;
-  --font-family-subheading: var(--font-archivo), 'Century Schoolbook', sans-serif;
-  --font-family-body: var(--font-crimson), 'Cervo', serif;
-  --font-family-btn: var(--font-felix), 'Cervo', serif;
-  --font-family-emphasis: var(--font-felix), 'Cervo', serif;
+  --font-space-mono: 'Space Mono';
+  --font-lora: 'Lora';
+
+  --font-family-heading: var(--font-space-mono), var(--font-mono);
+  --font-family-subheading: var(--font-lora), var(--font-serif);
+  --font-family-body: var(--font-lora), var(--font-mono);
+  --font-family-btn: var(--font-space-mono), var(--font-sans-serif);
 
   /** 
     COLOR 
@@ -24,14 +22,17 @@
   --color-green: 0 255 0;
   --color-blue: 0 0 255;
   --color-white: 255 255 255;
-  --color-black: 0 0 0;  
+  --color-black: 0 0 0;
   --color-gray: 197 197 197;
   --color-gray-light: 241 241 241;
   --color-gray-dark: 159 159 159;
 
   --color-white-primary: 255 255 255;
   --color-black-primary: 0 0 0;
-  --color-snow: 209 239 255;
+  --color-blue-primary: 5 0 255;
+  --color-blue-gradient: 95 178 254;
+  --color-purple-light: 207 206 255;
+  --color-purple-gradient: 127 95 254;
 
   --color-primary: var(--color-hermes-orange);
   --color-secondary: var(--color-hermes-orange);
@@ -48,7 +49,7 @@
   --navigation-height: 57px;
   --announcement-height: 0px;
 
-/*
+  /*
   --gutter-section: 16px;
 */
 

@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { Logo } from '@components/graphic';
-import { Props } from 'default-types';
+import { Icon } from '@components/graphic';
 
-interface ComponentProps extends Props {
-};
+import { Props } from 'default-types';
+interface ComponentProps extends Props {}
 
 export const Footer = (props: ComponentProps) => {
-  let { className } = props;
+  const { className } = props;
 
   return (
     <footer className={[`footer__c`, className].css()}>
-      <Logo />
+      <Icon className={[``].css()} icon="fl-logo" />
+      <Icon className={[``].css()} icon="excalibur-logo" />
     </footer>
   );
 };

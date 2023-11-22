@@ -26,14 +26,16 @@ module.exports = {
         green: 'rgba(var(--color-green) / <alpha-value>)',
         blue: 'rgba(var(--color-blue) / <alpha-value>)',
         white: '#FFFFFF',
-        'white-primary': 'rgba(var(--color-white-primary) / <alpha-value>)',
         black: '#000000',
-        'black-primary': 'rgba(var(--color-black-primary) / <alpha-value>)',
         //        'black-transparent': `rgba(${toRGB('var(--color-black)')} / 0.5)`,
         gray: 'rgba(var(--color-gray) / <alpha-value>)',
         'gray-light': 'rgba(var(--color-gray-light) / <alpha-value>)',
         'gray-dark': 'rgba(var(--color-gray-dark) / <alpha-value>)',
-        snow: 'rgba(var(--color-snow) / <alpha-value>)',
+
+        'white-primary': 'rgba(var(--color-white-primary) / <alpha-value>)',
+        'black-primary': 'rgba(var(--color-black-primary) / <alpha-value>)',
+        'blue-primary': 'rgba(var(--color-blue-primary) / <alpha-value>)',
+        'purple-light': 'rgba(var(--color-purple-light) / <alpha-value>)',
         primary: 'rgba(var(--color-primary) / <alpha-value>)',
         secondary: 'rgba(var(--color-secondary) / <alpha-value>)',
         tertiary: 'rgba(var(--color-tertiary) / <alpha-value>)',
@@ -102,8 +104,8 @@ module.exports = {
         'screen-3/4': '75vw',
         'screen-1/5': '20vw',
         'screen-2/5': '40vw',
-        'screen-3/5': '60vw',        
-        'screen-4/5': '80vw',         
+        'screen-3/5': '60vw',
+        'screen-4/5': '80vw',
       },
       fontFamily: {
         heading: 'var(--font-family-heading)',
@@ -233,6 +235,17 @@ module.exports = {
         },
         { values: theme('textShadow') },
       );
+      /*
+      matchUtilities(
+        {
+          'translate-z': (value) => ({
+            '--tw-translate-z': value,
+            transform: ` translate3d(var(--tw-translate-x), var(--tw-translate-y), var(--tw-translate-z)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))`,
+          }), // this is actual CSS
+        },
+        { values: theme('translate'), supportsNegativeValues: true }
+      )
+*/
     }),
   ],
 };

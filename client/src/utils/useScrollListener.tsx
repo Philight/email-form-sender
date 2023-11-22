@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export default function useScrollListener() {
   const [data, setData] = useState({
@@ -12,7 +12,7 @@ export default function useScrollListener() {
   // set up event listeners
   useEffect(() => {
     const handleScroll = () => {
-      setData((last) => {
+      setData(last => {
         return {
           x: window.scrollX,
           y: window.scrollY,
@@ -24,10 +24,10 @@ export default function useScrollListener() {
     };
 
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

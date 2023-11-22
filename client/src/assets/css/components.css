@@ -6,6 +6,14 @@
 
 .image__c {
   @apply relative h-full w-full;
+  &.square {
+    .image__placeholder {
+      @apply h-0 w-full pt-full;
+    }
+    .image__image {
+      @apply abs-fill;
+    }
+  }
 }
 
 .loader__c {
@@ -32,25 +40,176 @@
   .multi-color svg {
     @apply bg-transparent;
   }
+
+  &.icon-envelope-outline {
+    &.flying {
+      @apply absolute;
+      transform-style: preserve-3d;
+      @apply h-8 w-8;
+      @apply -scale-x-100;
+      /*
+      transform: scaleX(-1) rotateY(20deg) rotateZ(25deg) translateX(0%);
+      transform: scaleX(-1) rotateX(-20deg) rotateY(20deg) rotateZ(25deg) translateX(0%);
+  */
+      .icon {
+        @apply bg-white-primary;
+      }
+    }
+  }
+  &.icon-envelope-fill {
+    &.flying {
+      @apply absolute;
+      transform-style: preserve-3d;
+      @apply h-12 w-12;
+      .icon {
+        @apply bg-blue-primary;
+      }
+    }
+  }
+  &.icon-fl-logo {
+    @apply h-[25px] w-[34px];
+  }
+  &.icon-excalibur-logo {
+    @apply h-8 w-8;
+  }
 }
 
 .layer__c {
+  &.gradient {
+    background: linear-gradient(
+      135deg,
+      rgba(var(--color-blue-gradient) / 1),
+      rgba(var(--color-purple-gradient) / 1) 100%
+    );
+  }
   &.stripe {
     @apply top-0 -z-10 h-1/2 translate-y-0 bg-black-primary;
   }
+}
+
+.shape__c {
+  @apply absolute;
+}
+
+.button__c {
 }
 
 /** 
  * LAYOUT
  */
 
+.landing-layout__c {
+  @apply min-h-screen;
+  .gradient {
+    @apply -z-30;
+  }
+  .landing-layout__envelopes {
+    @apply absolute -z-20;
+    @apply overflow-hidden;
+    .envelopes--slow {
+      .e-0 {
+        @apply top-[0%];
+        @apply left-[0%];
+      }
+      .e-1 {
+        @apply top-[12%];
+        @apply left-[90%];
+      }
+      .e-2 {
+        @apply top-[28%];
+        @apply left-[40%];
+      }
+      .e-3 {
+        @apply top-[48%];
+        @apply left-[24%];
+      }
+      .e-4 {
+        @apply top-[64%];
+        @apply left-[80%];
+      }
+      .e-5 {
+        @apply bottom-[40%];
+        @apply left-[82%];
+      }
+      .e-6 {
+        @apply bottom-[36%];
+        @apply left-[40%];
+      }
+      .e-7 {
+        @apply bottom-[20%];
+        @apply left-[96%];
+      }
+      .e-8 {
+        @apply bottom-[10%];
+        @apply left-[20%];
+      }
+      .e-9 {
+        @apply bottom-[0%];
+        @apply left-[80%];
+      }
+    }
+    .envelopes--fast {
+      .e-0 {
+        @apply top-[12%];
+        @apply left-[0%];
+      }
+      .e-1 {
+        @apply top-[80%];
+        @apply left-[0%];
+      }
+    }
+  }
+
+  .overlay {
+    @apply -z-20;
+    @apply bg-black-primary/20;
+  }
+
+  .footer__c {
+    @apply page-max-w;
+    @apply absolute bottom-[var(--gutter-outer-x)] flex w-full items-center justify-between;
+    .icon__c {
+      .icon {
+        @apply bg-gray;
+      }
+    }
+  }
+}
+
 /* SECTIONS/BLOCKS */
 
+.landing-page__c {
+  @apply text-white-primary;
+  h2 {
+    @apply heading heading--lg;
+  }
+  h3 {
+    @apply subheading subheading--lg;
+  }
+  h3 {
+    @apply mt-8;
+  }
+  .landing-page__actions {
+    @apply mt-16 gap-4;
+    button {
+      @apply rounded-lg;
+      &.standard {
+        @apply btn btn--standard;
+      }
+      &.outline {
+        @apply btn btn--outline;
+      }
+      &.lg {
+        @apply btn--lg;
+      }
+    }
+  }
+}
 
 /** 
  * PLUGIN  
  */
- 
+
 .style-guide__c {
   .style-guide__font-sizes {
     font-family: Monospace;
@@ -59,7 +218,7 @@
     }
     th {
       @apply min-w-[140px] text-center;
-      @apply border-x-0 border-t-0 border-b border-black border-solid;
+      @apply border-x-0 border-b border-t-0 border-solid border-black;
     }
     td {
       @apply text-center;

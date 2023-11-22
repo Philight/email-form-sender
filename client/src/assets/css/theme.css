@@ -7,7 +7,7 @@
 /** 
   LAYOUT SETTINGS
  */
- 
+
 .gutter-outer-x {
   @apply px-gutter-outer-x;
 }
@@ -17,7 +17,7 @@
 }
 
 .page-max-w {
-  @apply mx-auto max-w-default gutter-outer-x;
+  @apply gutter-outer-x mx-auto max-w-default;
 }
 
 .section-spacing {
@@ -90,14 +90,8 @@
 .heading {
   @apply font-heading;
 }
-.heading--xl {
-  @apply text-4xl desk-lg:text-5xl-minus; /*  */
-  @apply font-semibold;
-  @apply tracking-normal;
-}
 .heading--lg {
-  @apply text-2xl tab-sm:text-3xl desk-lg:text-4xl; /*  */
-  @apply font-semibold;
+  @apply text-4xl-plus tab-sm:text-5xl;
   @apply tracking-1;
 }
 .heading--md {
@@ -116,6 +110,14 @@
   @apply text-3xs tab-sm:text-2xs desk-md:text-sm;
   @apply lowercase;
   @apply tracking-3;
+}
+
+.subheading {
+  @apply font-subheading;
+  @apply text-purple-light;
+}
+.subheading--lg {
+  @apply text-2xl;
 }
 
 .body {
@@ -141,11 +143,12 @@
 
 .btn-text {
   @apply font-btn;
+  @apply uppercase;
 }
 .btn-text--lg {
   @apply text-base tab-sm:text-xl;
-  @apply tracking-2;
-  @apply uppercase;
+  @apply tracking-1;
+  @apply font-semibold;
 }
 .btn-text--md {
   @apply text-sm;
@@ -153,7 +156,6 @@
 .btn-text--sm {
   @apply text-xs-plus tab-sm:text-sm;
   @apply tracking-2;
-  @apply uppercase;
 }
 
 /** 
@@ -161,11 +163,11 @@
  */
 
 .btn {
-  @apply action inline-flex cursor-pointer items-center rounded-full shadow;
+  @apply action inline-flex cursor-pointer items-center rounded-lg shadow-md;
 }
 
 .btn--standard {
-  @apply bg-primary text-white-primary;
+  @apply bg-blue-primary text-white-primary;
   transition:
     background-color 0.5s ease-in-out,
     color 0.4s ease-in-out;
@@ -174,19 +176,9 @@
   }
 }
 
-.btn--primary {
-  @apply bg-tertiary text-white-primary;
-
-  transition:
-    background-color 0.5s ease-in-out,
-    color 0.4s ease-in-out;
-  &:hover {
-  }
-}
-
 .btn--outline {
   @apply font-light;
-  @apply border border-white-primary/70 bg-transparent text-white-primary;
+  @apply border border-solid border-blue-primary/100 bg-transparent text-blue-primary;
 
   transition: opacity ease-in-out 0.4s;
   &:hover {
@@ -198,18 +190,15 @@
 
 .btn--lg {
   @apply btn-text btn-text--lg;
-  @apply h-8 px-6 py-0.5 pt-px;
-  @media screen(tab-sm) {
-    @apply h-10 px-8;
-  }
+  @apply h-11 py-0.5 pt-px;
 }
 
 .btn--md {
   @apply btn-text btn-text--md;
-  @apply h-6 px-6 py-0.5 pt-1;
+  @apply h-6 py-0.5 pt-1;
 }
 
 .btn--sm {
   @apply btn-text btn-text--sm;
-  @apply h-5 px-6 py-0.5 pt-1;
+  @apply h-5 py-0.5 pt-1;
 }

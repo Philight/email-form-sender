@@ -22,7 +22,7 @@ interface LayoutProps extends Props {
   Page?: React.FC | React.Component | React.ReactNode;
 }
 
-const AuthLayout = ({ Page, ...rest }: LayoutProps) => {
+const FormLayout = ({ Page, ...rest }: LayoutProps) => {
   const { className } = rest;
 
   const [{ img, page }, setState] = React.useState({});
@@ -30,10 +30,10 @@ const AuthLayout = ({ Page, ...rest }: LayoutProps) => {
   const setPageData = React.useCallback(({ img, page }) => setState({ img, page }), []);
 
   return (
-    <div className={['auth-layout__c layout', className].css()}>
+    <div className={['layout__c form f-col', className].css()}>
       <Layer className={['background gradient '].css()} />
       <Box className={['overlay abs-fill'].css()} />
-      <Envelopes />
+      <Envelopes className={[`animated-layer`].css()} />
 
       <Header />
       {Page && <Page />}
@@ -43,4 +43,4 @@ const AuthLayout = ({ Page, ...rest }: LayoutProps) => {
   );
 };
 
-export default AuthLayout;
+export default FormLayout;

@@ -11,6 +11,9 @@ import {
   Typography,
 } from '@mui/material';
 
+import { useDataContext } from '@contexts/DataContext';
+
+import { NavigationButton } from '@components/interactive/NavigationButton';
 import { Icon } from '@components/graphic';
 import { fetchData } from '@utils/api';
 import { withPageData } from '@utils/hoc';
@@ -20,6 +23,9 @@ interface PageProps extends Props {}
 
 const LandingPage = (props: PageProps) => {
   const { className } = props;
+  const context = useDataContext();
+  const formStage = context.formStage;
+  const pageData = context.pageData[formStage] ?? {};
 
   useEffect(() => {
     const getData = async () => {
@@ -38,23 +44,37 @@ const LandingPage = (props: PageProps) => {
 
     getData();
   }, []);
-
+  /*
+  const nextStage = (stage) => (e) => {
+//    context.setFormStage(stage);
+//    navigate('/login');
+  }
+*/
   return (
     <main className={['landing-page__c f-center full-screen', className].css()}>
       <Stack direction="column" alignItems="center">
         <Typography variant="h2" className={[``].css()} align="center">
-          Email Sender
+          {pageData?.heading}
         </Typography>
         <Typography variant="h3" className={[``].css()} align="center">
-          Sign in to send emails
+          {pageData?.subheading}
         </Typography>
         <ButtonGroup orientation="horizontal" className={[`landing-page__actions`].css()}>
-          <Button className={'standard lg'} variant="contained" size="large" href="/login">
-            Sign In
-          </Button>
-          <Button className={'lg outline'} variant="outlined" size="large">
-            Sign Up
-          </Button>
+          <NavigationButton
+            variant="standard"
+            size="lg"
+            label="Sign In"
+            link="/login"
+            nextStage="signin"
+            //            onClick={nextStage('signin')}
+          />
+          <NavigationButton
+            variant="outline"
+            size="lg"
+            label="Sign Up"
+            link="/register"
+            nextStage="signup"
+          />
         </ButtonGroup>
       </Stack>
     </main>

@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useEffect, useReducer, createContext, useContext } from 'react';
-import dataReducer, { initialState, IStateType } from "@store/reducers/dataReducer";
+import dataReducer from '@store/reducers/dataReducer';
+import { initialState, IStateType } from '@store/reducers/initialState';
 
 import {
   getEstablishmentRatings,
@@ -48,32 +49,28 @@ export const DataProvider = ({ children }: PropsWithChildren<T>): React.FC<React
     });
   };
 
-  const updateField = (fieldName: string, fieldValue: unknown): void => {
+  //  const updateFields = (fieldName: string, fieldValue: unknown): void => {
+  const updateFields = (updatedFields: { [key: string]: string }): void => {
     dispatch({
-//      type: 'UPDATE_'+fieldName.toUpperCase(),
-      type: 'UPDATE_FIELD',
+      //      type: 'UPDATE_'+fieldName.toUpperCase(),
+      type: 'UPDATE_FIELDS',
       payload: {
-        fieldName,
-        fieldValue,
+        updatedFields,
       },
     });
   };
 
   const contextValue = {
-    formFields: state.formFields,
+    pageData: state.pageData,
     formStage: state.formStage,
     formData: state.formData,
-    updateField,
+    updateFields,
     setFormStage,
     setLoading,
     setError,
   };
 
-  return (
-    <DataContext.Provider value={contextValue}>
-      {children}
-    </DataContext.Provider>
-  );
+  return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
 };
 
 export const useDataContext = (): IContextType => {

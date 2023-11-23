@@ -30,11 +30,10 @@ const LandingLayout = ({ Page, ...rest }: LayoutProps) => {
   const setPageData = React.useCallback(({ img, page }) => setState({ img, page }), []);
 
   return (
-    <div className={['landing-layout__c layout', className].css()}>
+    <div className={['layout__c landing', className].css()}>
       <Layer className={['background gradient '].css()} />
       <Box className={['overlay abs-fill'].css()} />
-
-      <Envelopes />
+      <Envelopes className={[`animated-layer`].css()} />
 
       {Page && <Page />}
       <Outlet context={{ setPageData }} />

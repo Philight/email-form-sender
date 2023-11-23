@@ -29,9 +29,13 @@
 
   --color-white-primary: 255 255 255;
   --color-black-primary: 0 0 0;
+
+  --color-blue-material: 25 118 210;
   --color-blue-primary: 5 0 255;
   --color-blue-gradient: 95 178 254;
-  --color-purple-light: 207 206 255;
+
+  --color-purple-light: 179 178 255;
+  --color-purple-lighter: 207 206 255;
   --color-purple-gradient: 127 95 254;
 
   --color-primary: var(--color-hermes-orange);
@@ -46,12 +50,9 @@
 
   --gutter-outer-x: 24px;
   --gutter-outer-y: 40px;
-  --navigation-height: 57px;
+  --navigation-height: 64px;
+  --subheading-height: 24px;
   --announcement-height: 0px;
-
-  /*
-  --gutter-section: 16px;
-*/
 
   @media screen(tab-sm) {
     --gutter-outer-x: 36px;
@@ -59,10 +60,11 @@
   }
   @media screen(desk-sm) {
     --gutter-outer-x: 64px;
+    --gutter-outer-y: 64px;
     --navigation-height: 80px;
   }
   @media screen(desk-lg) {
     --gutter-outer-x: 80px;
-    --navigation-height: 84px;
+    --navigation-height: 96px;
   }
 }

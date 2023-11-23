@@ -12,7 +12,7 @@ export const Envelopes = ({ className, children, onClick, style }: ComponentProp
     return `rotateX(${rotateX}) rotateY(${rotateY}) rotateZ(${rotateZ}) translateX(${x})`;
   }
   return (
-    <div className={['landing-layout__envelopes left fill-parent'].css()}>
+    <div className={['envelopes__c fill-parent', className].css()}>
       <motion.div
         className={['envelopes--slow abs-fill'].css()}
         initial={{ rotateX: '-20deg', rotateY: '20deg', rotateZ: '-20deg', x: '0%' }}

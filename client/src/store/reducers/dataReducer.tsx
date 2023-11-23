@@ -1,107 +1,28 @@
-export interface IStateType {
-  formFields: {
-    [key: string]: string;
-  };
-  formData: {
-    [key: string]: string | string[];
-  };
-  formStage: string;
-}
+export const STAGES = {
+  FORM: ['landing', 'recipients', 'body', 'pictures', 'summary', 'send'],
+  LOGIN: ['landing', 'signin'],
+  REGISTER: ['landing', 'signup'],
+};
 
-export const initialState: IStateType = {
-  formFields: {
-    signin: {
-      heading: 'Sign In',
-      subheading: 'Log in with your email address',
-      fields: {
-        email: {
-          label: 'Email',
-          required: true,
-          type: 'text',
-        },
-        password: {
-          label: 'Password',
-          required: true,
-          type: 'text',
-        },
-      },
-    },
-    signup: {
-      heading: 'Sign Up',
-      subheading: 'Fill your user credentials',
-      fields: {
-        name: {
-          label: 'Name',
-          required: true,
-          type: 'text',
-        },
-        email: {
-          label: 'Email',
-          required: true,
-          type: 'text',
-        },
-        password: {
-          label: 'Password',
-          required: true,
-          type: 'text',
-        },
-        passwordConfirm: {
-          label: 'Confirm Password',
-          required: true,
-          type: 'text',
-        },
-        photo: {
-          label: 'Profile Phote',
-          required: false,
-          type: 'text',
-        },
-      },
-    },
-    recipients: {
-      heading: 'Email Recipients',
-      subheading: 'Fill recipient email addresses',
-      fields: {
-        subject: {
-          label: 'Subject',
-          required: true,
-          type: 'text',
-        },
-        recipient: {
-          label: 'Recipient',
-          required: true,
-          type: 'text',
-        },
-        cc: {
-          label: 'Cc',
-          required: false,
-          type: 'text',
-        },
-      },
-    },
-    pictures: {
-      heading: 'Upload Pictures',
-      subheading: 'Add signature and pictures',
-      fields: {
-        upload: {
-          label: 'Upload',
-          required: false,
-          type: 'upload',
-        },
-      },
-    },
-    summary: {
-      heading: 'Summary',
-      subheading: 'Email summary',
-      fields: {},
-    },
-  },
-  formData: {},
-  formStage: '',
+export const getStageInfo = (stageName: string) => {
+  const stageInfo = {
+    currentStage: stageName,
+  };
+  for (const [stageType, stages] of Object.entries(STAGES)) {
+    const foundIndex = stages.indexOf(stageName);
+    if (foundIndex > -1) {
+      stageInfo.stageType = stageType;
+      stageInfo.stageIndex = foundIndex;
+      stageInfo.prevStage = foundIndex - 1 > -1 ? stages[foundIndex - 1] : null;
+      stageInfo.nextStage = foundIndex + 1 < stages.length ? stages[foundIndex + 1] : null;
+      return stageInfo;
+    }
+  }
 };
 
 const dataReducer = (state, action) => {
   const { type, payload } = action;
-  const { formStage, fieldName, fieldValue } = payload;
+  const { formStage, updatedFields } = payload;
 
   switch (type) {
     case 'SET_STAGE':
@@ -110,13 +31,13 @@ const dataReducer = (state, action) => {
         ...state,
         formStage,
       };
-    case 'UPDATE_FIELD':
-      console.log('UPDATE_FIELD', payload);
+    case 'UPDATE_FIELDS':
+      console.log('UPDATE_FIELDS', payload);
       return {
         ...state,
         formData: {
           ...state.formData,
-          [fieldName]: fieldValue,
+          ...updatedFields,
         },
       };
 

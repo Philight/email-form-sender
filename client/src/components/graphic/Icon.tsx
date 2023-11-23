@@ -52,6 +52,7 @@ export const Icon = forwardRef<Ref, ComponentProps>((props, ref) => {
           mask: `url(${svgIcon}) no-repeat center`,
         },
       };
+  const newTabProps = { target: '_blank', rel: 'noopener noreferrer' };
 
   return error ? (
     <img className={[`icon__c not-found`].css()} src={noIcon} />
@@ -67,7 +68,7 @@ export const Icon = forwardRef<Ref, ComponentProps>((props, ref) => {
       animate={animate}
       transition={transition}
     >
-      {link && <Link href={link} className="abs-fill" />}
+      {link && <Link to={link} className="abs-fill" {...newTabProps} />}
       {!loading && (
         <img
           className="icon"

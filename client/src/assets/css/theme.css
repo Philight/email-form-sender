@@ -95,15 +95,15 @@
   @apply tracking-1;
 }
 .heading--md {
-  @apply text-lg tab-sm:text-xl desk-lg:text-2xl;
-  @apply tracking-2;
+  @apply text-2xl desk-lg:text-3xl;
+  @apply tracking-1;
 }
 .heading--sm {
   @apply text-base desk-sm:text-sm;
   @apply tracking-2;
 }
 .heading--xs {
-  @apply text-sm;
+  @apply text-xs;
   @apply tracking-2;
 }
 .heading--2xs {
@@ -118,6 +118,10 @@
 }
 .subheading--lg {
   @apply text-2xl;
+}
+.subheading--md {
+  @apply text-base;
+  @apply tracking-1;
 }
 
 .body {
@@ -163,16 +167,18 @@
  */
 
 .btn {
-  @apply action inline-flex cursor-pointer items-center rounded-lg shadow-md;
+  @apply action inline-flex cursor-pointer items-center rounded-md shadow-md min-w-[136px];
 }
 
 .btn--standard {
   @apply bg-blue-primary text-white-primary;
+/*
   transition:
     background-color 0.5s ease-in-out,
     color 0.4s ease-in-out;
+*/
   &:hover {
-    @apply bg-tertiary;
+    @apply opacity-80;
   }
 }
 

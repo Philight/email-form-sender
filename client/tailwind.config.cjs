@@ -32,10 +32,17 @@ module.exports = {
         'gray-light': 'rgba(var(--color-gray-light) / <alpha-value>)',
         'gray-dark': 'rgba(var(--color-gray-dark) / <alpha-value>)',
 
+        'blue-material': 'rgba(var(--color-blue-material) / <alpha-value>)',
+
+        'purple-light': 'rgba(var(--color-purple-light) / <alpha-value>)',
+        'purple-lighter': 'rgba(var(--color-purple-lighter) / <alpha-value>)',
+        'purple-gradient': 'rgba(var(--color-purple-gradient) / <alpha-value>)',
+
         'white-primary': 'rgba(var(--color-white-primary) / <alpha-value>)',
         'black-primary': 'rgba(var(--color-black-primary) / <alpha-value>)',
         'blue-primary': 'rgba(var(--color-blue-primary) / <alpha-value>)',
-        'purple-light': 'rgba(var(--color-purple-light) / <alpha-value>)',
+        'purple-primary': 'rgba(var(--color-purple-primary) / <alpha-value>)',
+
         primary: 'rgba(var(--color-primary) / <alpha-value>)',
         secondary: 'rgba(var(--color-secondary) / <alpha-value>)',
         tertiary: 'rgba(var(--color-tertiary) / <alpha-value>)',

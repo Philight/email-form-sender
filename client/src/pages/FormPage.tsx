@@ -1,9 +1,25 @@
 import React, { useCallback, useState, useEffect, forwardRef } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { AppBar, Toolbar, Typography, TextField, FormControl, FormGroup, Paper, Container, Stack } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  TextField,
+  FormControl,
+  FormGroup,
+  Paper,
+  Container,
+  Stack,
+  FormHelperText,
+  FormControlLabel,
+  FormLabel,
+  TextareaAutosize,
+} from '@mui/material';
 
 import { NavigationButton } from '@components/interactive/NavigationButton';
+import { Form } from '@components/form/Form';
+
 import { useDataContext } from '@contexts/DataContext';
 import { getStageInfo } from '@store/reducers/dataReducer';
 import { toCapitalCase } from '@utils/string';
@@ -16,67 +32,80 @@ const FormPage = (props: PageProps) => {
   const { className } = props;
 
   const context = useDataContext();
+  const formData = context.formData;
   const formStage = context.formStage;
+  const stageInfo = getStageInfo(formStage);
   const pageData = context.pageData[formStage] ?? {};
   const fields = pageData?.fields ?? {};
-  const stageInfo = getStageInfo(formStage);
 
+  // Temporary local state
   const [values, setValues] = useState({});
   // Create state for form errors:
   const [validationErrors, setValidationErrors] = useState({});
 
   const mSlide = useMotionValue(0);
-  const aX = useTransform(
-    mSlide,
-    [0, 1, 2],
-    ['100%', '0%', '-100%']
-  );
+  const aX = useTransform(mSlide, [0, 1, 2], ['100%', '0%', '-100%']);
 
-  useEffect(() => {
-//    if (withAnimation) {
-      let animation = null;
-      mSlide.set(0);
-      animation = animate(mSlide, 1, {
-        ease: "circIn",
-        ease: "backOut",
-        duration: 0.8,
-        onComplete: () => {
-        },
-      });
+  const slideIn = async () => {
+    mSlide.set(0);
+    const animation = animate(mSlide, 1, {
+      ease: 'circIn',
+      ease: 'backOut',
+      duration: 0.8,
+      onComplete: () => {},
+    });
 
-      return () => animation.stop();
-//    }
-  }, [formStage]);
+    return () => animation.stop();
+  };
 
-  const animateOut = async () => {
+  const slideOut = async () => {
     return new Promise(resolve => {
       mSlide.set(1);
-      let animation = animate(mSlide, 2, {
-        ease: "anticipate",
-        ease: "backIn",
-        ease: "backOut",
+      const animation = animate(mSlide, 2, {
+        ease: 'anticipate',
+        ease: 'backIn',
+        ease: 'backOut',
         duration: 0.4,
         onComplete: () => {
           resolve(true);
         },
-      })
+      });
+      return () => animation.stop();
     });
-  }
-
-  const onFieldChange = useCallback(
-    (fieldName: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValues(prevValues => ({
-        ...prevValues,
-        [fieldName]: e.target.value,
-      }));
-    },
-    [],
-  );
+  };
 
   const resetForm = () => {
     setValues({});
     setValidationErrors({});
   };
+
+  useEffect(() => {
+    /*
+    let animation = null;
+    mSlide.set(0);
+    animation = animate(mSlide, 1, {
+      ease: 'circIn',
+      ease: 'backOut',
+      duration: 0.8,
+      onComplete: () => {},
+    });
+
+    return () => animation.stop();
+*/
+    slideIn();
+    resetForm();
+  }, [formStage]);
+
+  const onFieldChange = useCallback(
+    (fieldName: string, newValue?: unknown) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log('onFieldChange', fieldName, newValue, e?.target.value);
+      setValues(prevValues => ({
+        ...prevValues,
+        [fieldName]: newValue ?? e.target.value,
+      }));
+    },
+    [],
+  );
 
   /*
   const onFieldChange = useCallback((fieldName: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,50 +115,41 @@ const FormPage = (props: PageProps) => {
 
   const onSubmit = event => {
     event.preventDefault();
-    animateOut().then((animated) => {
-        console.log('animated', animated)
-
-      context.setFormStage(stageInfo.nextStage);
-    });
-
+    console.log('onSubmit', formData);
     console.log(context.formData);
     console.log(values);
-    /*
-    try {
-//      signInSchema.validateSync(context.formData, { abortEarly: false })
-//      recipientSchema.validateSync(values, { abortEarly: false })
-      bodySchema.validateSync(values, { abortEarly: false })
 
-    } catch(err) {
-//console.log(err)
-console.log(err.inner)
+    // Skip validations
+    if (formStage === 'landing' || formStage === 'attachments') {
+      context.updateFields(values);
+      context.setFormStage(stageInfo.nextStage);
       return;
     }
-*/
+
     pageData?.validations
-      .validate(values, { abortEarly: false })
+      .validate({ ...formData, ...values }, { abortEarly: false })
       .then(() => {
         // PUSH VALUES TO ONTEXT
         context.updateFields(values);
         // Reset Form
-        resetForm();
+        //        resetForm();
         // Next stage
         // animation OUT
-        return animateOut();//.then();
+        return slideOut(); // .then();
       })
-      .then((animated) => {
-        console.log('animated', animated)
+      .then(animated => {
+        console.log('animated', animated);
         context.setFormStage(stageInfo.nextStage);
       })
       .catch(err => {
-//        console.log(err.inner);
+        //        console.log(err.inner);
         const validErrors = err.inner.reduce((acc, error) => {
           return {
             ...acc,
             [error.path]: error.message,
           };
         }, {});
-//        console.log(validErrors);
+        //        console.log(validErrors);
         setValidationErrors(validErrors);
       });
   };
@@ -148,52 +168,29 @@ console.log(err.inner)
   return (
     <main className={['form-page__c page', className].css()}>
       <Stack direction="column">
-      <Typography variant="h3" className={[``].css()} align="center">
-        {pageData?.subheading}
-      </Typography>
-      
-      <motion.div 
-        className={[`form-page__form-container`].css()}
-//        initial={{ x: aX }}
-//        transition={{}}
-//        animate={{ x: aX }}
-//        exit
-//        translateX={aX}
-        style={{ 
-          x: aX 
-        }}
-      >
-        <Paper elevation={8}>
-          <form noValidate>
-            <FormGroup className={[`form-page__form-group`].css()}>
-              {Object.keys(fields).map(fieldName => (
-                <TextField
-                  className={[`form-page__form-field`].css()}
-                  variant="standard"
-                  key={fieldName}
-                  id={fieldName}
-                  type={fields[fieldName].type}
-                  label={fields[fieldName].label}
-                  required={fields[fieldName].required}
-                  helperText={validationErrors[fieldName] && toCapitalCase(validationErrors[fieldName])}
-                  error={validationErrors[fieldName]?.length > 0}
-                  onChange={onFieldChange(fieldName)}
-                />
-              ))}
-            </FormGroup>
+        <Typography variant="h3" className={[``].css()} align="center">
+          {pageData?.subheading}
+        </Typography>
 
-          </form>
-        </Paper>
-      </motion.div>
-      <NavigationButton
-        className={[`form-page__form-submit`].css()}
-        type="submit"
-        variant="standard"
-        size="lg"
-        //          nextStage={stageInfo.nextStage}
-        {...getButtonLabel()}
-        onClick={onSubmit}
-      />
+        <motion.div className={[`form-page__form-container`].css()} style={{ x: aX }}>
+          <Form
+            editable={formStage !== 'summary'}
+            fields={fields}
+            values={values}
+            formData={formData}
+            validationErrors={validationErrors}
+            onFieldChange={onFieldChange}
+          />
+        </motion.div>
+
+        <NavigationButton
+          className={[`form-page__form-submit`].css()}
+          type="submit"
+          variant="standard"
+          size="lg"
+          {...getButtonLabel()}
+          onClick={onSubmit}
+        />
       </Stack>
     </main>
   );

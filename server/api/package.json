@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "start": "npm run start:server",
     "start:server": "ts-node-dev --respawn --transpile-only server.ts",
     "db:migrate": "npx prisma migrate dev --name added-verificationCode --create-only --schema ./server/prisma/schema.prisma && yarn prisma generate --schema ./server/prisma/schema.prisma",
     "db:push": "npx prisma db push --schema ./server/prisma/schema.prisma"
@@ -22,6 +23,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.2",
     "got": "^13.0.0",
+    "imagekit": "^4.1.4",
     "joi": "^17.11.0",
     "redis": "^4.2.0"
   }

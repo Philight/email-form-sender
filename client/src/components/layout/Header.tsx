@@ -26,7 +26,7 @@ export const Header = (props: ComponentProps) => {
             className={[``].css()}
             nextStage={stageInfo.prevStage}
             stageIndex={stageInfo.stageIndex - 1}
-//            link={stageInfo.prevStage === 'landing' && '/'}
+            //            link={stageInfo.prevStage === 'landing' && '/'}
             isPrev
           />
         )}

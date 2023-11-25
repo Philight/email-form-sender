@@ -12,6 +12,7 @@ export default defineConfig({
     alias: {
       ROOT: path.resolve(__dirname),
       '@': path.resolve(__dirname, 'src'),
+      '@api': path.resolve(__dirname, 'src', 'api'),
       '@assets': path.resolve(__dirname, 'src', 'assets'),
       '@css': path.resolve(__dirname, 'src', 'assets', 'css'),
       '@fonts': path.resolve(__dirname, 'src/assets/fonts'),

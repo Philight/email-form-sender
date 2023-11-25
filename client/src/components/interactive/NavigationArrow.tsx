@@ -7,7 +7,15 @@ import { Icon } from '@components/graphic';
 
 import { Props } from 'default-types';
 interface ComponentProps extends Props {
-  nextStage?: 'landing' | 'signin' | 'signup' | 'recipients' | 'body' | 'pictures' | 'summary' | 'send';
+  nextStage?:
+    | 'landing'
+    | 'signin'
+    | 'signup'
+    | 'recipients'
+    | 'body'
+    | 'attachments'
+    | 'summary'
+    | 'send';
   stageIndex?: number;
   onClick?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
   variant?: 'back' | 'next';
@@ -53,15 +61,15 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
   const getIcon = () => {
     switch (nextStage) {
       case 'landing':
-        return "arrow-left";
+        return 'arrow-left';
       case 'recipients':
       case 'body':
-      case 'pictures':
-        return "nav-arrow";
+      case 'attachments':
+        return 'nav-arrow';
       case 'summary':
-        return "summary";
+        return 'summary';
       case 'send':
-        return "envelope-fill";
+        return 'envelope-fill';
     }
   };
   const renderIcon = () => {
@@ -70,7 +78,7 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
         return <Icon icon="arrow-left" />;
       case 'recipients':
       case 'body':
-      case 'pictures':
+      case 'attachments':
         return (
           <>
             <Icon icon="nav-arrow" />
@@ -90,7 +98,11 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
 
   return (
     <IconButton
-      className={[`navigation-arrow__c material-icon-button icon-${icon}`, className, isPrev ? 'back' : 'next'].css()}
+      className={[
+        `navigation-arrow__c material-icon-button icon-${icon}`,
+        className,
+        isPrev ? 'back' : 'next',
+      ].css()}
       aria-label={isPrev ? 'back' : 'next'}
       href={link}
       onClick={handleClick}

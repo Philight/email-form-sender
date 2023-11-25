@@ -35,8 +35,10 @@
     "@mui/material": "^5.14.18",
     "axios": "^1.5.1",
     "framer-motion": "^10.16.4",
+    "imagekit-javascript": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-router-dom": "^6.16.0",
     "yup": "^1.3.2"
   },

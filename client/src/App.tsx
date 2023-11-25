@@ -12,7 +12,7 @@ import { Loader } from '@components/graphic';
 import ScrollToTop from '@components/util/ScrollToTop';
 
 import PACKAGE_JSON from 'ROOT/package.json';
-//import { CONSTANTS } from '@data/CONSTANTS';
+// import { CONSTANTS } from '@data/CONSTANTS';
 import { dynamicImport } from '@utils/dynamicImport';
 
 const ROUTE_TO_PAGE = {

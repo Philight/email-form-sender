@@ -14,8 +14,8 @@ export const signUpSchema = yup.object().shape({
 
 export const recipientsSchema = yup.object().shape({
   subject: yup.string().required(),
-  recipient: yup.string().email().required(),
-  cc: yup.string(),
+  to: yup.string().email().required(),
+  cc: yup.string().email(),
 });
 
 export const bodySchema = yup.object().shape({

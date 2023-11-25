@@ -1,5 +1,5 @@
 export const STAGES = {
-  FORM: ['landing', 'recipients', 'body', 'pictures', 'summary', 'send'],
+  FORM: ['landing', 'recipients', 'body', 'attachments', 'summary', 'send'],
   LOGIN: ['landing', 'signin'],
   REGISTER: ['landing', 'signup'],
 };
@@ -22,7 +22,7 @@ export const getStageInfo = (stageName: string) => {
 
 const dataReducer = (state, action) => {
   const { type, payload } = action;
-  const { formStage, updatedFields } = payload;
+  const { imageKitTokens, formStage, updatedFields } = payload;
 
   switch (type) {
     case 'SET_STAGE':

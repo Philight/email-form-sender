@@ -27,16 +27,22 @@
   --color-gray-light: 241 241 241;
   --color-gray-dark: 159 159 159;
 
-  --color-white-primary: 255 255 255;
-  --color-black-primary: 0 0 0;
-
   --color-blue-material: 25 118 210;
-  --color-blue-primary: 5 0 255;
+  --color-blue-material-custom: 26 25 210;
   --color-blue-gradient: 95 178 254;
 
+  --color-purple-material: 103 58 183;
+  --color-purple-material-light: 131 75 255;
+  --color-purple-material-dark: 101 31 255;
+  --color-purple-material-custom: 94 25 210;
   --color-purple-light: 179 178 255;
   --color-purple-lighter: 207 206 255;
   --color-purple-gradient: 127 95 254;
+
+  --color-white-primary: 255 255 255;
+  --color-black-primary: 0 0 0;
+  --color-blue-primary: var(--color-blue-material-custom);
+  --color-purple-primary: var(--color-purple-material-custom);
 
   --color-primary: var(--color-hermes-orange);
   --color-secondary: var(--color-hermes-orange);

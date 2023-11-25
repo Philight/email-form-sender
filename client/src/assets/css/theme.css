@@ -96,7 +96,6 @@
 }
 .heading--md {
   @apply text-2xl desk-lg:text-3xl;
-  @apply tracking-1;
 }
 .heading--sm {
   @apply text-base desk-sm:text-sm;
@@ -120,6 +119,9 @@
   @apply text-2xl;
 }
 .subheading--md {
+  @apply text-lg;
+}
+.subheading--sm {
   @apply text-base;
   @apply tracking-1;
 }
@@ -167,12 +169,12 @@
  */
 
 .btn {
-  @apply action inline-flex cursor-pointer items-center rounded-md shadow-md min-w-[136px];
+  @apply action inline-flex min-w-[136px] cursor-pointer items-center rounded-md shadow-md;
 }
 
 .btn--standard {
-  @apply bg-blue-primary text-white-primary;
-/*
+  @apply bg-purple-primary text-white-primary;
+  /*
   transition:
     background-color 0.5s ease-in-out,
     color 0.4s ease-in-out;

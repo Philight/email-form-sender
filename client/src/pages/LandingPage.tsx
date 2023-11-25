@@ -61,19 +61,19 @@ const LandingPage = (props: PageProps) => {
         </Typography>
         <ButtonGroup orientation="horizontal" className={[`landing-page__actions`].css()}>
           <NavigationButton
+            variant="outline"
+            size="lg"
+            label="Sign Up"
+            link="/register"
+            nextStage="signup"
+          />
+          <NavigationButton
             variant="standard"
             size="lg"
             label="Sign In"
             link="/login"
             nextStage="signin"
             //            onClick={nextStage('signin')}
-          />
-          <NavigationButton
-            variant="outline"
-            size="lg"
-            label="Sign Up"
-            link="/register"
-            nextStage="signup"
           />
         </ButtonGroup>
       </Stack>

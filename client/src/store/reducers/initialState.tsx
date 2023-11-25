@@ -24,11 +24,54 @@ export interface IStateType {
   //  formStage: number;
 }
 
+const RECIPIENTS_FIELDS = {
+  subject: {
+    label: 'Subject',
+    required: true,
+    type: 'text',
+  },
+  to: {
+    label: 'Recipient',
+    required: true,
+    type: 'text',
+  },
+  cc: {
+    label: 'Cc',
+    required: false,
+    type: 'text',
+  },
+};
+
+const BODY_FIELDS = {
+  body: {
+    label: 'Email Content',
+    required: true,
+    type: 'textarea',
+  },
+};
+
+const UPLOADED_FIELDS = {
+  upload: {
+    label: 'Upload',
+    required: false,
+    type: 'upload',
+  },
+};
+
+const ATTACHMENTS_FIELDS = {
+  attachments: {
+    label: 'Attachments',
+    required: false,
+    type: 'attachments',
+  },
+};
+
 export const initialState: IStateType = {
   pageData: {
     landing: {
       heading: 'Email Sender',
       subheading: 'Sign in to send emails',
+      validations: null,
     },
     signin: {
       heading: 'Sign In',
@@ -72,7 +115,7 @@ export const initialState: IStateType = {
           type: 'text',
         },
         photo: {
-          label: 'Profile Phote',
+          label: 'Profile Photo',
           required: false,
           type: 'text',
         },
@@ -80,58 +123,41 @@ export const initialState: IStateType = {
       validations: signUpSchema,
     },
     recipients: {
-      heading: 'Email Recipients',
+      heading: 'Recipients',
       subheading: 'Fill recipient email addresses',
       fields: {
-        subject: {
-          label: 'Subject',
-          required: true,
-          type: 'text',
-        },
-        recipient: {
-          label: 'Recipient',
-          required: true,
-          type: 'text',
-        },
-        cc: {
-          label: 'Cc',
-          required: false,
-          type: 'text',
-        },
+        ...RECIPIENTS_FIELDS,
       },
       validations: recipientsSchema,
     },
     body: {
-      heading: 'Email Body',
+      heading: 'Body',
       subheading: 'Fill email text',
       fields: {
-        body: {
-          label: 'Email Body',
-          required: true,
-          type: 'text',
-        },
+        ...BODY_FIELDS,
       },
       validations: bodySchema,
     },
-    pictures: {
-      heading: 'Upload Pictures',
+    attachments: {
+      heading: 'Attachments',
       subheading: 'Add signature and pictures',
       fields: {
-        upload: {
-          label: 'Upload',
-          required: false,
-          type: 'upload',
-        },
+        ...UPLOADED_FIELDS,
+        ...ATTACHMENTS_FIELDS,
       },
-      //      validations: bodySchema,
     },
     summary: {
       heading: 'Summary',
       subheading: 'Email summary',
-      fields: {},
+      fields: {
+        ...RECIPIENTS_FIELDS,
+        ...BODY_FIELDS,
+        ...ATTACHMENTS_FIELDS,
+      },
     },
   },
   formData: {},
   formStage: 'landing',
-  isLoggedIn: false,
+  //  isLoggedIn: false,
+  imageKitTokens: {},
 };

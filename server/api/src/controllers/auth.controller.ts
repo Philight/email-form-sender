@@ -1,5 +1,6 @@
 import path from 'path';
 
+import { getImageKitAuthParams } from '../utils/imageKit';
 import { 
   mailerClient, 
   mailerSignUp, 
@@ -12,6 +13,25 @@ const MODULE = path.basename(__filename).replace('.js', '');
 const IS_DEBUG = Boolean(process.env.IS_DEBUG) ?? false;
 const PORT = parseInt(process.env.PORT, 10) || 80;
 const HOSTNAME = process.env.HOSTNAME;
+
+
+exports.getImageKitAuth = async (req, res, next) => {
+  try {
+    if (IS_DEBUG) message(MODULE, `getImageKitAuth |`, TMessage.INFO);
+
+    const response = getImageKitAuthParams();
+console.log('CLIENT REQ | getImageKitAuth response');
+console.log(response);
+
+    res.statusMessage = TMessage.SUCCESS;
+    res.status(200).json(await response);
+
+  } catch (err) {
+    message(MODULE, `signUp >> `+err + (err&&err.stack), TMessage.ERROR);
+    res.statusMessage = TMessage.ERROR;
+    res.status(500).json({ error: err.message });
+  }
+};
 
 exports.signUp = async (req, res, next) => {
   try {

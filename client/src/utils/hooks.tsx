@@ -9,48 +9,47 @@ export const usePrevious = (value: string) => {
   return ref.current;
 };
 
-export const useFetch = (url: string): any => {
-  const [state, setState] = useState();
+export const useAPI = (url: string, method?: axios.Method = 'GET', bodyData?: unknown) => {
+  const [response, setResponse] = useState<unknown>(null);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const dataFetch = async () => {
-      const data = await (await fetch(url)).json();
+    let isMounted = true;
 
-      setState(data);
-    };
+    const fetchData = async (): Promise<void> => {
+      setLoading(true);
 
-    dataFetch();
-  }, [url]);
+      try {
+        const options: axios.AxiosRequestConfig = {
+          url,
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          data: bodyData,
+          timeout: null,
+        };
 
-  return { response: state };
-};
+        const { data } = await axios(options);
 
-export const useAPI = (url: string, method?: 'GET' | 'POST' | 'PUT' | 'DELETE', bodyData?: any) => {
-  const [state, setState] = useState<any>();
-  // console.log('useAPI');
-
-  const CRUD = method ?? 'GET';
-
-  useEffect(() => {
-    const options = {
-      url,
-      method: CRUD,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: bodyData,
-      timeout: null,
-    };
-
-    const fetchData = async (): void => {
-      const data = await axios(options);
-      // console.log('useAPI data response');
-      // console.log(data);
-      setState(data);
+        if (isMounted) {
+          setResponse(data);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     };
 
     fetchData();
-  }, [url, CRUD, data]);
 
-  return { response: state };
+    return () => {
+      isMounted = false;
+    };
+  }, [url, method, bodyData]);
+
+  return { response, isLoading };
 };

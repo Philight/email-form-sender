@@ -2,13 +2,7 @@ import React, { PropsWithChildren, useEffect, useReducer, createContext, useCont
 import dataReducer from '@store/reducers/dataReducer';
 import { initialState, IStateType } from '@store/reducers/initialState';
 
-import {
-  getEstablishmentRatings,
-  getEstablishmentList,
-  EstablishmentType,
-  ResponseType,
-} from '@api/ratingsAPI';
-import { arrayUniqueValues } from '@utils/array';
+// import { arrayUniqueValues } from '@utils/array';
 
 export const DataContext = createContext();
 
@@ -49,10 +43,8 @@ export const DataProvider = ({ children }: PropsWithChildren<T>): React.FC<React
     });
   };
 
-  //  const updateFields = (fieldName: string, fieldValue: unknown): void => {
   const updateFields = (updatedFields: { [key: string]: string }): void => {
     dispatch({
-      //      type: 'UPDATE_'+fieldName.toUpperCase(),
       type: 'UPDATE_FIELDS',
       payload: {
         updatedFields,

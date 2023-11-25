@@ -7,4 +7,4 @@ export const toCapitalCase = (s: string): string => {
   const remainingChars: string = s.slice(1);
 
   return firstChar + remainingChars;
-}
+};

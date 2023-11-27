@@ -10,6 +10,7 @@
     "REPOSITORY": "https://github.com/[USER]/[REPOSITORY].git"
   },
   "scripts": {
+    "start": "npm run dev",
     "dev": "concurrently --raw --kill-others --passthrough-arguments \"npm run dev:win || npm run dev:linux\"",
     "dev:linux": "vite --port $npm_package_config_port",
     "dev:win": "ver && vite --port %npm_package_config_port%",

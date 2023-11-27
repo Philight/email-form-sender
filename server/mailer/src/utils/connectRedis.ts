@@ -1,14 +1,22 @@
 import { createClient } from 'redis';
 
-const redisUrl = `redis://localhost:6379`;
+const redisUrl = `redis://127.0.0.1:6379`;
+const REDIS_HOST = `redis://127.0.0.1`;
+const REDIS_PORT = 6379;
 const redisClient = createClient({
-  url: redisUrl,
+//  url: redisUrl,
+  legacyMode: true,
+  socket: {
+    host: REDIS_HOST,
+    port: REDIS_PORT,
+  }
 });
+// const pubClient = createClient({ url: 'redis://redis:6379' });
 
 const connectRedis = async () => {
   try {
     await redisClient.connect();
-    console.log('🚀 Redis client connected...');
+    console.log('🚀 MAILER: Redis client connected...');
     redisClient.set(
       'tRPC',
       '🙌🙌Welcome to tRPC with React.js, Express and Typescript!'
@@ -19,8 +27,13 @@ const connectRedis = async () => {
   }
 };
 
-connectRedis();
+//connectRedis();
 
-redisClient.on('error', (err) => console.log(err));
+redisClient.on('error', (err) => {
+  console.error('redis error', err)
+});
 
-export default redisClient;
+export {
+  redisClient,
+  connectRedis,
+}

@@ -10,10 +10,10 @@ if (process.env.NODE_ENV !== 'production') {
   global.prisma = prisma;
 }
 
-async function connectDB() {
+export const connectDB = async () => {
   try {
     await prisma.$connect();
-    console.log('🚀 Database connected successfully');
+    console.log('🚀 MAILER: Prisma Database connected successfully');
   } catch (error) {
     console.log(error);
     process.exit(1);
@@ -22,4 +22,4 @@ async function connectDB() {
   }
 }
 
-export default connectDB;
+// export default connectDB;

@@ -1,12 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
+import {
+  Backdrop,
+} from '@mui/material';
 import { Icon, Layer } from '@components/graphic';
 import { Props } from 'default-types';
 
 const ANIM_PULSE = {
   animate: {
-    opacity: [0.4, 1, 0.4],
+    opacity: [0.6, 1, 0.6],
     scale: [0.95, 1.05, 0.95],
   },
   transition: {
@@ -21,16 +23,19 @@ interface ComponentProps extends Props {
 }
 
 export const Loader = (props: ComponentProps) => {
-  const { className, onClick, style } = props;
+  const { className, onClick, style, fullscreen, overlayed } = props;
 
   return (
-    <motion.figure
-      className={[`loader__c full-screen f-center`, className].css()}
+    <motion.div
+      className={[`loader__c f-center`, fullscreen && 'full-screen', overlayed && 'overlayed', className].css()}
       style={style}
       onClick={onClick}
     >
+      <Backdrop className={'loader__background'} open={true} />
+{/*
       <Layer className={'loader__background abs-center fill-parent'} />
-      <Icon icon="infinity-8" animate={ANIM_PULSE.animate} transition={ANIM_PULSE.transition} />
-    </motion.figure>
+*/}
+      <Icon icon="4-bars" isMultiColor animate={ANIM_PULSE.animate} transition={ANIM_PULSE.transition} />
+    </motion.div>
   );
 };

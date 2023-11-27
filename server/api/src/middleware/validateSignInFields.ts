@@ -7,9 +7,6 @@ const MODULE = path.basename(__filename).replace('.js', '');
 
 const validationSchema = Joi.object({
 
-  name: Joi.string()
-    .required(),
-
   email: Joi.string()
     .email({ minDomainSegments: 2 })
     .required(),
@@ -18,21 +15,12 @@ const validationSchema = Joi.object({
     .min(3)
     .max(15)
     .required(), 
-
-  passwordConfirm: Joi.any()
-    .valid(Joi.ref('password'))
-    .required()
-    .label('Confirm password')
-    .messages({ 'any.only': '{{#label}} does not match' }),
-
-  photo: Joi.string()
-    .uri(),
    
 }).options({ abortEarly: false })
 
 
-export const validateUserFields = async (req, res, next) => {
-  if (IS_DEBUG) message(MODULE, `validateUserFields |`, TMessage.INFO);
+export const validateSignInFields = async (req, res, next) => {
+  if (IS_DEBUG) message(MODULE, `validateSignInFields |`, TMessage.INFO);
 console.log(req.body);
   const { error: validationErrors } = validationSchema.validate(req.body);
   if (validationErrors) { 
@@ -43,7 +31,7 @@ console.log(req.body);
     for (const field of validationErrors.details) {
       response.fields[field.context.key] = field.message;
     }
-    message(MODULE, `validateUserFields >> `, TMessage.ERROR);
+    message(MODULE, `validateSignInFields >> `, TMessage.ERROR);
     printObject(response);
     res.statusMessage = TMessage.ERROR;
     res.status(400).json(response);

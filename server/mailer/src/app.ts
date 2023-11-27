@@ -6,15 +6,16 @@ import { AuthServiceHandlers } from '../pb/auth/AuthService';
 
 import {
   loginHandler,
-  refreshAccessTokenHandler,
   registerHandler,
   verifyEmailHandler,
+  refreshAccessTokenHandler,
 } from './controllers/auth.controller';
 import { getMeHandler } from './controllers/user.controller';
 import { sendEmailHandler } from './controllers/email.controller';
 
 import customConfig from './config/default';
-import connectDB from './utils/prisma';
+import { connectDB } from './utils/prisma';
+import { connectRedis } from './utils/connectRedis';
 // [...] 👆 other imports
 import nodemailer from 'nodemailer';
 
@@ -65,7 +66,8 @@ server.bindAsync(
     }
 
     server.start();
-    connectDB();
     console.log(`🚀 MAILER: gRPC Server listening on ${port}`);
+    connectDB();
+    connectRedis();
   }
 );

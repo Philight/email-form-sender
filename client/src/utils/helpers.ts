@@ -8,3 +8,5 @@ export const getAppURL = (): string => {
   // console.log(window.location.href.split(window.location.pathname)[0]);
   return window.location.href.split(window.location.pathname)[0];
 };
+
+export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));

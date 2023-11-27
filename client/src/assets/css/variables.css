@@ -27,6 +27,12 @@
   --color-gray-light: 241 241 241;
   --color-gray-dark: 159 159 159;
 
+  --color-red-material: 244 67 54;
+  --color-red-material-dark: 170 46 37;
+
+  --color-green-material: 76 175 80;
+  --color-green-material-dark: 53 122 56;
+
   --color-blue-material: 25 118 210;
   --color-blue-material-custom: 26 25 210;
   --color-blue-gradient: 95 178 254;

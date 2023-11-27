@@ -7,14 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RoleEnumType {
+  user
+  admin
+}
 
-model Email {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  email String 
-  emailcc String 
-  emailto String 
-  body String
-  image String? @default("default.png")
+model User {
+  @@map(name: "users")
+
+  // Other fields
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  photo String? @default("default.png")
+  
+  password String
+  role RoleEnumType? @default(user)
+
+  verified Boolean? @default(false) 
+  verification_code String? @unique
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

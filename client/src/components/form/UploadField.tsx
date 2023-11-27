@@ -82,7 +82,8 @@ export const UploadField = ({
             const oldValue = value ?? defaultValue;
             console.log('value added', [...oldValue, uploadedURL]);
             //            setUploaded(prevUploaded => [...prevUploaded, uploadedURL]);
-            onFieldChange('attachments', [...oldValue, uploadedURL])();
+            //            onFieldChange('attachments', [...oldValue, uploadedURL])();
+            onFieldChange('attachments', uploadedURL)();
 
             setLoading(false);
             setError(null);
@@ -166,21 +167,6 @@ export const UploadField = ({
           </>
         )}
       </Stack>
-
-      {/*
-
-        defaultValue.length>0 &&
-      <FormControl className={['field__preview'].css()}>
-        <FormLabel htmlFor={"attachments"}>Attachments</FormLabel>
-        {defaultValue.map((file, index) => (
-          <Paper key={index} id={'attachments'} className={['field__preview-item'].css()}>
-            <Icon icon="x-mark" onClick={removeUploaded(index)} />
-            <Image src={file} alt="Upload preview" />
-          </Paper>
-        ))}
-      </FormControl>
-
-      */}
 
       <FormHelperText>{error && error.message}</FormHelperText>
     </FormControl>

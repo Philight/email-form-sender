@@ -107,13 +107,15 @@ export const initialState: IStateType = {
         password: {
           label: 'Password',
           required: true,
-          type: 'text',
+          type: 'password',
         },
         passwordConfirm: {
           label: 'Confirm Password',
           required: true,
-          type: 'text',
+          type: 'password',
         },
+        /*
+         */
         photo: {
           label: 'Profile Photo',
           required: false,

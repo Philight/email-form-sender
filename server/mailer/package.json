@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:server": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "start": "npm run start:server",
+    "start:server": "npm run generate && ts-node-dev --respawn --transpile-only src/app.ts",
     "start:client": "ts-node-dev --transpile-only client/app.ts",
-    "db:migrate": "npx prisma migrate dev --name added-verificationCode --create-only --schema ./src/prisma/schema.prisma && yarn prisma generate --schema ./src/prisma/schema.prisma",
-    "db:push": "npx prisma db push --schema ./src/prisma/schema.prisma"
+    "generate": "npm run proto:generate && npm run db:generate",
+    "proto:generate": "proto-gen.sh",
+    "db:generate": "npx prisma db push --schema ./src/prisma/schema.prisma",
+    "db:migrate": "npx prisma migrate dev --name added-verificationCode --create-only --schema ./src/prisma/schema.prisma && yarn prisma generate --schema ./src/prisma/schema.prisma"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

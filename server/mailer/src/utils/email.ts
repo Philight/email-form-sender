@@ -52,7 +52,7 @@ console.log(args);
     });
   }
 
-  private async send(template: string, subject: string) {
+  private async send({ template, subject }: { template: string, subject: string }) {
 console.log('Email class send');
     // Generate HTML template based on the template string
     const html = pug.renderFile(`${__dirname}/../views/${template}.pug`, {
@@ -77,14 +77,23 @@ console.log('Email class send');
   }
 
   async sendVerificationCode() {
-    await this.send('verificationCode', 'Your account verification code');
+    await this.send({ 
+      template: 'verificationCode', 
+      subject: 'Your account verification code',
+    });
   }
 
   async sendPasswordResetToken() {
-    await this.send('resetPassword', 'Your password reset token (valid for only 10 minutes)');
+    await this.send({ 
+      template: 'resetPassword', 
+      subject: 'Your password reset token (valid for only 10 minutes)',
+    });
   }
 
   async sendEmail(subject?: string) {
-    await this.send('fullEmail', subject ?? 'Default: Email subject');
+    await this.send({ 
+      template: 'fullEmail', 
+      subject: subject ?? 'Default: Email subject',
+    });
   }
 }

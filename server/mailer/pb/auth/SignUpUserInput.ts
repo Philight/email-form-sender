@@ -7,7 +7,6 @@ export interface SignUpUserInput {
   'password'?: (string);
   'passwordConfirm'?: (string);
   'photo'?: (string);
-  'provider'?: (string);
 }
 
 export interface SignUpUserInput__Output {
@@ -16,5 +15,4 @@ export interface SignUpUserInput__Output {
   'password': (string);
   'passwordConfirm': (string);
   'photo': (string);
-  'provider': (string);
 }

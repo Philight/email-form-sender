@@ -15,10 +15,10 @@ exports.sendEmail = async (req, res, next) => {
 
     printObject(req.body);
 
-console.log('CLIENT REQ | sendEmail body');
+console.log('API | sendEmail req');
 console.log(req.body);
     const response = mailerSend(req.body);
-console.log('CLIENT REQ | sendEmail response');
+console.log('API | sendEmail response');
 console.log(response);
 
 /*

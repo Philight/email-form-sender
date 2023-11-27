@@ -27,23 +27,6 @@ const LandingPage = (props: PageProps) => {
   const formStage = context.formStage;
   const pageData = context.pageData[formStage] ?? {};
 
-  useEffect(() => {
-    const getData = async () => {
-      const jsonData = {
-        from: 'obd@gmail.sk',
-        attachments: ['http://obd@gmail.sk'],
-      };
-      const response = await fetchData({
-        url: 'http://127.0.0.1:9000/api/v1/mail',
-        method: 'POST',
-        data: jsonData,
-      });
-
-      console.log(response);
-    };
-
-    getData();
-  }, []);
   /*
   const nextStage = (stage) => (e) => {
 //    context.setFormStage(stage);
@@ -59,14 +42,7 @@ const LandingPage = (props: PageProps) => {
         <Typography variant="h3" className={[``].css()} align="center">
           {pageData?.subheading}
         </Typography>
-        <ButtonGroup orientation="horizontal" className={[`landing-page__actions`].css()}>
-          <NavigationButton
-            variant="outline"
-            size="lg"
-            label="Sign Up"
-            link="/register"
-            nextStage="signup"
-          />
+        <ButtonGroup orientation="vertical" className={[`landing-page__actions`].css()}>
           <NavigationButton
             variant="standard"
             size="lg"
@@ -74,6 +50,13 @@ const LandingPage = (props: PageProps) => {
             link="/login"
             nextStage="signin"
             //            onClick={nextStage('signin')}
+          />
+          <NavigationButton
+            variant="outline"
+            size="lg"
+            label="Sign Up"
+            link="/register"
+            nextStage="signup"
           />
         </ButtonGroup>
       </Stack>

@@ -1,4 +1,4 @@
-// Original file: proto/user.proto
+// Original file: proto/services.proto
 
 
 export interface GenericResponse {

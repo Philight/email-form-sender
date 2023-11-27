@@ -15,14 +15,19 @@ import {
   FormControlLabel,
   FormLabel,
   TextareaAutosize,
+  CircularProgress,
+  Backdrop,
 } from '@mui/material';
 
 import { NavigationButton } from '@components/interactive/NavigationButton';
-import { Form } from '@components/form/Form';
+import { Form, AlertBox } from '@components/form';
+import { Loader } from '@components/graphic';
 
+import { signUpUser, signInUser } from '@api/mailer';
 import { useDataContext } from '@contexts/DataContext';
 import { getStageInfo } from '@store/reducers/dataReducer';
 import { toCapitalCase } from '@utils/string';
+//import { sleep } from '@utils/helpers';
 import { withPageData } from '@utils/hoc';
 
 import { Props } from 'default-types';
@@ -42,10 +47,27 @@ const FormPage = (props: PageProps) => {
   const [values, setValues] = useState({});
   // Create state for form errors:
   const [validationErrors, setValidationErrors] = useState({});
+  const [alert, setAlert] = useState({
+    type: '',
+    title: '',
+    message: '',
+  });
 
   const mSlide = useMotionValue(0);
   const aX = useTransform(mSlide, [0, 1, 2], ['100%', '0%', '-100%']);
 
+  const mLoader = useMotionValue(0);
+  const aOpacity = useTransform(mLoader, [0, 1], [0, 1]);
+  const aIndex = useTransform(mLoader, [0, 1], [-100, 100]);
+  const mAlert = useMotionValue(0);
+  const aAlertX = useTransform(mAlert, [0, 1], ['100%', '0%']);
+
+  const ANIMATIONS = {
+    'form': mSlide,
+    'loader': mLoader,
+    'alert': mAlert,
+  }
+/*()
   const slideIn = async () => {
     mSlide.set(0);
     const animation = animate(mSlide, 1, {
@@ -73,47 +95,64 @@ const FormPage = (props: PageProps) => {
       return () => animation.stop();
     });
   };
+*/
+  const animateEffect = async (element: string, fromStage: number, toStage: number, options?: unknown = {}) => {
+    const { delay, ease, duration } = options;
+    const motionValue = ANIMATIONS[element];
+    return new Promise(resolve => {
+      motionValue.set(fromStage);
+      const animation = animate(motionValue, toStage, {
+/*
+        ease: 'anticipate',
+        ease: 'backIn',
+        ease: 'backOut',     
+        ease: 'circIn',
+*/   
+        ease: ease ?? 'easeInOut',
+        duration: duration ?? 0.4,
+        delay: delay,
+        onComplete: () => {
+          resolve(true);
+        },
+      });
+      return () => animation.stop();
+    });
+  };
 
   const resetForm = () => {
     setValues({});
     setValidationErrors({});
   };
 
+  /**
+   * On every stage change
+  */
   useEffect(() => {
-    /*
-    let animation = null;
-    mSlide.set(0);
-    animation = animate(mSlide, 1, {
-      ease: 'circIn',
-      ease: 'backOut',
-      duration: 0.8,
-      onComplete: () => {},
-    });
-
-    return () => animation.stop();
-*/
-    slideIn();
     resetForm();
+//    slideIn();
+    animateEffect('form', 0, 1, { ease: 'backOut', duration: 0.8 });
   }, [formStage]);
 
   const onFieldChange = useCallback(
     (fieldName: string, newValue?: unknown) => (e: React.ChangeEvent<HTMLInputElement>) => {
       console.log('onFieldChange', fieldName, newValue, e?.target.value);
-      setValues(prevValues => ({
-        ...prevValues,
-        [fieldName]: newValue ?? e.target.value,
-      }));
+      if (fieldName === 'attachments') {
+        setValues(prevValues => ({
+          ...prevValues,
+          attachments:
+            'attachments' in prevValues ? [...prevValues.attachments, newValue] : [newValue],
+        }));
+      } else {
+        setValues(prevValues => ({
+          ...prevValues,
+          [fieldName]: e.target.value,
+        }));
+      }
     },
     [],
   );
 
-  /*
-  const onFieldChange = useCallback((fieldName: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    context.updateField(fieldName, e.target.value);
-  }, [])
-*/
-
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
     console.log('onSubmit', formData);
     console.log(context.formData);
@@ -126,23 +165,60 @@ const FormPage = (props: PageProps) => {
       return;
     }
 
+    // After Alert stage
+    if (!!alert.type) {
+      setAlert({ type: '', title: '', message: '' });
+      animateEffect('alert', 1, 0);
+      if (alert.type === 'success') {
+        context.setFormStage(stageInfo.nextStage);
+        return;
+      } else {
+        // Show previous Form
+        return animateEffect('form', 0, 1, { ease: 'backOut', duration: 0.8 });
+      }
+    }
+
+    // Validations
     pageData?.validations
       .validate({ ...formData, ...values }, { abortEarly: false })
       .then(() => {
-        // PUSH VALUES TO ONTEXT
+        // Update Context values
         context.updateFields(values);
-        // Reset Form
-        //        resetForm();
-        // Next stage
-        // animation OUT
-        return slideOut(); // .then();
+        // Exit animation
+//        return slideOut();
+        return animateEffect('form', 1, 2, { ease: 'backOut', duration: 0.4 });
       })
-      .then(animated => {
+      .then(async (animated) => {
         console.log('animated', animated);
-        context.setFormStage(stageInfo.nextStage);
+        let response: unknown;
+        // Submit
+        if (formStage === 'signin') {
+          await animateEffect('loader', 0, 1);
+          response = await signInUser(values);
+          await animateEffect('loader', 1, 0, { delay: 1 });
+        } else if (formStage === 'signup') {
+          await animateEffect('loader', 0, 1);
+          response = await signUpUser(values);
+          await animateEffect('loader', 1, 0, { delay: 1 });
+
+        } else if (formStage === 'send') {
+
+        } else {
+          context.setFormStage(stageInfo.nextStage);
+          return;
+        }
+
+        console.log('response', response);
+        if (response instanceof Error) {
+          setAlert({ type: 'error', title: 'Error', message: response?.response?.data?.error });
+          animateEffect('alert', 0, 1);
+        } else if (response.status === 'success') {
+          setAlert({ type: 'success', title: 'Success', message: response?.message });
+          animateEffect('alert', 0, 1);
+        }
       })
       .catch(err => {
-        //        console.log(err.inner);
+        console.log('FormPage', err);
         const validErrors = err.inner.reduce((acc, error) => {
           return {
             ...acc,
@@ -154,7 +230,7 @@ const FormPage = (props: PageProps) => {
       });
   };
 
-  const getButtonLabel = () => {
+  const buttonLabelProps = () => {
     switch (stageInfo.nextStage) {
       case 'summary':
         return { icon: 'summary' };
@@ -168,9 +244,25 @@ const FormPage = (props: PageProps) => {
   return (
     <main className={['form-page__c page', className].css()}>
       <Stack direction="column">
-        <Typography variant="h3" className={[``].css()} align="center">
+        <Typography variant="h3" className={[`form-page__subheading`].css()} align="center">
           {pageData?.subheading}
         </Typography>
+
+        <Loader 
+          className={['form-page__loader'].css()}
+          fullscreen
+          overlayed
+          style={{ opacity: aOpacity, zIndex: aIndex }}
+        />
+
+        <motion.div className={[`form-page__alert`].css()} style={{ x: aAlertX }}>
+          <AlertBox 
+            type={alert.type}
+            title={alert.title}
+            message={alert.message}
+            onClick={onSubmit}
+          />
+        </motion.div>
 
         <motion.div className={[`form-page__form-container`].css()} style={{ x: aX }}>
           <Form
@@ -188,7 +280,7 @@ const FormPage = (props: PageProps) => {
           type="submit"
           variant="standard"
           size="lg"
-          {...getButtonLabel()}
+          {...buttonLabelProps()}
           onClick={onSubmit}
         />
       </Stack>

@@ -32,6 +32,10 @@ module.exports = {
         'gray-light': 'rgba(var(--color-gray-light) / <alpha-value>)',
         'gray-dark': 'rgba(var(--color-gray-dark) / <alpha-value>)',
 
+        'red-material': 'rgba(var(--color-red-material) / <alpha-value>)',
+        'red-material-dark': 'rgba(var(--color-red-material-dark) / <alpha-value>)',
+        'green-material': 'rgba(var(--color-green-material) / <alpha-value>)',
+        'green-material-dark': 'rgba(var(--color-green-material-dark) / <alpha-value>)',
         'blue-material': 'rgba(var(--color-blue-material) / <alpha-value>)',
 
         'purple-light': 'rgba(var(--color-purple-light) / <alpha-value>)',

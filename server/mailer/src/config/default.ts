@@ -3,6 +3,7 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 const customConfig: {
   hostname: string;
+  apiPort: number;
   port: number;
   dbUri: string;
 
@@ -37,6 +38,8 @@ const customConfig: {
   accessTokenExpiresIn: 15,
   refreshTokenExpiresIn: 60,
   redisCacheExpiresIn: 60,
+
+  
   routes: {
     'auth': {
       'verifyEmail': '/auth/v1/verify-email'

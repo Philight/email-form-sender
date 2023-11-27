@@ -1,7 +1,7 @@
 export const STAGES = {
   FORM: ['landing', 'recipients', 'body', 'attachments', 'summary', 'send'],
   LOGIN: ['landing', 'signin'],
-  REGISTER: ['landing', 'signup'],
+  REGISTER: ['landing', 'signup', 'signin', 'recipients', 'body', 'attachments', 'summary', 'send'],
 };
 
 export const getStageInfo = (stageName: string) => {

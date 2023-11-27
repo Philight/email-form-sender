@@ -27,9 +27,10 @@ const VERIFY_EMAIL = customConfig.routes.auth.verifyEmail;
 
 export const registerHandler = async (
   req: grpc.ServerUnaryCall<SignUpUserInput__Output, SignUpUserResponse>,
-  res: grpc.sendUnaryData<GenericResponse>
+  res: grpc.sendUnaryData<SignUpUserResponse>
 ) => {
   try {
+    console.log('MAILER | registerHandler req', req.request);
     const hashedPassword = await bcrypt.hash(req.request.password, 12);
     const user = await createUser({
       email: req.request.email.toLowerCase(),
@@ -37,7 +38,6 @@ export const registerHandler = async (
       password: hashedPassword,
       photo: req.request.photo,
       verified: false,
-      provider: 'local',
     });
 
     const verification_code = crypto.randomBytes(20).toString('hex');
@@ -52,15 +52,15 @@ export const registerHandler = async (
     const redirectUrl = `http://${HOSTNAME}:${API_PORT}${VERIFY_EMAIL}?code=${verification_code}`;
     try {
       await new Email({ user, redirectUrl }).sendVerificationCode();
-      res(null, { status: 'success', message: 'Email verification code sent' });
-    } catch (error: any) {
+      res(null, { status: 'success', message: 'Email verification code sent. Check your inbox for a confirmation code.' });
+    } catch (error: unknown) {
       await updateUser({ id: user.id }, { verification_code: null });
       res({
         code: grpc.status.INTERNAL,
         message: error.message,
       });
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     if (err.code === 'P2002') {
       res({
         code: grpc.status.ALREADY_EXISTS,
@@ -85,7 +85,7 @@ export const loginHandler = async (
     if (!user?.verified) {
       res({
         code: grpc.status.INVALID_ARGUMENT,
-        message: 'Account not verified',
+        message: 'Account not verified. Check your inbox.',
       });
     }
 

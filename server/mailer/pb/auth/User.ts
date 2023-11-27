@@ -8,7 +8,6 @@ export interface User {
   'email'?: (string);
   'role'?: (string);
   'photo'?: (string);
-  'provider'?: (string);
   'created_at'?: (_google_protobuf_Timestamp | null);
   'updated_at'?: (_google_protobuf_Timestamp | null);
 }
@@ -19,7 +18,6 @@ export interface User__Output {
   'email': (string);
   'role': (string);
   'photo': (string);
-  'provider': (string);
   'created_at': (_google_protobuf_Timestamp__Output | null);
   'updated_at': (_google_protobuf_Timestamp__Output | null);
 }

@@ -13,7 +13,8 @@ const options: protoLoader.Options = {
   oneofs: true,
 };
 
-const PORT = customConfig.port;
+//const PORT = customConfig.port;
+const PORT = 9000;
 const PROTO_FILE = '../../../mailer/proto/services.proto';
 const packageDef = protoLoader.loadSync(
   path.resolve(__dirname, PROTO_FILE),
@@ -36,6 +37,45 @@ client.waitForReady(deadline, (err) => {
     console.error(err);
     return;
   }
+  console.log('API | Testing connection to gRPC | Sending test email..');
+  console.log('API | Testing connection to gRPC | GRPC PORT..', PORT, customConfig.port);
+  console.log('API | Testing connection to gRPC | API PORT..', PORT, customConfig.apiPort);
+  console.log('API | Testing connection to gRPC | GRPC CONFIG..', customConfig.dbUri, customConfig.isDebug, customConfig.routes);
+/*
+  const testEmailBody = {
+    'from': 'obd.sf.test01@gmail.com',
+    'to': 'lai.filip@gmail.com',
+    'cc': ['test01@gmail.com', 'test02@gmail.com', 'test03@gmail.com'],
+    'subject': 'subject',
+    'body': 'Lorem ipsum..',
+    'attachments': '',
+  }
+
+  client.SendEmail(testEmailBody, (err, res) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(res);
+  });
+*/
+  client.SignUpUser(
+    {
+      name: 'Admin',
+      email: 'admin@admin.com',
+      password: 'password123',
+      passwordConfirm: 'password123',
+      photo: 'default.png',
+    },
+    (err, res) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(res);
+    }
+  );  
+
 });
 
 
@@ -43,73 +83,94 @@ client.waitForReady(deadline, (err) => {
  * gRPC FUNCTIONS
 *********/
 
-const signUpUser = (user) => {
-  client.signUpUser(user, (err, res) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(res);
-    return res;
+const signUpUser = async (user) => {
+  console.log(`API | Calling gRPC | SignUpUser`)
+  console.log(user)
+
+  return await new Promise((resolve, reject) => {
+    client.SignUpUser(user, (err, res) => {
+      if (err) {
+        console.error(`API | Calling gRPC | SignUpUser error`)
+        console.error(err);
+        reject(err);
+        return;
+      }
+      console.log(`API | Calling gRPC | SignUpUser res`)
+      console.log(res);
+      resolve(res);
+    });
   });
 }
 
-const verifyEmail = () => {
-  client.verifyEmail(null, (err, res) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(res);
+const verifyEmail = async (verification_code) => {
+  return await new Promise((resolve, reject) => {
+    client.VerifyEmail({ verification_code }, (err, res) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      console.log(res);
+      resolve(res);
+    });
   });
 }
 
-const signInUser = (user) => {
-  client.signInUser(user, (err, res) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(res);
-    return res;
+const signInUser = async (user) => {
+  return await new Promise((resolve, reject) => {
+    client.SignInUser(user, (err, res) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      console.log(res);
+      resolve(res);
+    });
   });
 }
 
-const refreshToken = (refreshToken) => {
-  client.refreshToken({ refresh_token: refreshToken }, (err, res) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(res);
-    return res;
+const refreshToken = async (refresh_token) => {
+  return await new Promise((resolve, reject) => {
+    client.RefreshToken({ refresh_token }, (err, res) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      console.log(res);
+      resolve(res);
+    });
   });
 }
 
-const getMe = (user) => {
-  client.getMe(user, (err, res) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(res);
-    return res;
+const getMe = async (user) => {
+  return await new Promise((resolve, reject) => {
+    client.GetMe(user, (err, res) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      console.log(res);
+      resolve(res);
+    });
   });
 }
 
-const sendEmail = (email) => {
-  client.sendEmail(email, (err, res) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(res);
-    return res;
+const sendEmail = async (email) => {
+  return await new Promise((resolve, reject) => {
+    client.SendEmail(email, (err, res) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      console.log(res);
+      resolve(res);
+    });
   });
 }
-
-
-
 
 export {
   client as mailerClient,

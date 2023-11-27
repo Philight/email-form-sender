@@ -37,7 +37,7 @@ const App = () => {
   return (
     <BrowserRouter basename={PACKAGE_JSON.config.BASENAME}>
       <ScrollToTop>
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader fullscreen />}>
           <DataProvider>
             <Routes>
               <Route element={<LandingLayout />}>

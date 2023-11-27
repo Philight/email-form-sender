@@ -8,9 +8,6 @@ var imagekit = new ImageKit({
   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT as string
 });
 
-var authenticationParameters = imagekit.getAuthenticationParameters();
-console.log('ImageKit', authenticationParameters);
-
 /********** 
  * FUNCTIONS
 *********/

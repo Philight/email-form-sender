@@ -10,7 +10,6 @@ message SignUpUserInput {
   string password = 3;
   string passwordConfirm = 4;
   string photo = 5;
-  string provider = 6;
 }
 
 message SignUpUserResponse { 

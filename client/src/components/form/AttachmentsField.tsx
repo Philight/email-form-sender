@@ -39,7 +39,9 @@ export const AttachmentsField = ({
   const attachments = value ?? defaultValue;
 
   const removeUploaded = (fileIndex: number) => (): void => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
     // console.log('removeUploaded', attachments);
     // console.log('removeUploaded', [...attachments.splice(fileIndex, 1)]);
     // console.log('removeUploaded attachments', attachments);
@@ -52,12 +54,20 @@ export const AttachmentsField = ({
   return attachments.length > 0 ? (
     <FormControl className={['field__c attachments', className].css()} focused={true}>
       <FormLabel htmlFor={'attachments'}>{fields[fieldName].label}</FormLabel>
-      {attachments.map((file, index) => (
-        <Paper key={index} id={'attachments'} className={['field__attachments'].css()}>
-          <Icon icon="x-mark" onClick={removeUploaded(index)} />
-          <Image src={file} alt="Upload preview" />
-        </Paper>
-      ))}
+      <Stack
+        className={['field__attachments'].css()}
+        direction="row"
+        useFlexGap
+        spacing={3}
+        marginTop={3}
+      >
+        {attachments.map((file, index) => (
+          <Paper key={index} id={'attachments'} className={['field__attachment'].css()}>
+            <Icon icon="x-mark" onClick={removeUploaded(index)} />
+            <Image src={file} alt="Upload preview" />
+          </Paper>
+        ))}
+      </Stack>
     </FormControl>
   ) : (
     <></>

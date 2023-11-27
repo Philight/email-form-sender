@@ -4,6 +4,7 @@ import { getImageKitAuthParams } from '../utils/imageKit';
 import { 
   mailerClient, 
   mailerSignUp, 
+  mailerVerify,
   mailerSignIn,
   mailerSend,
 } from '../utils/connectGRPC';
@@ -19,8 +20,8 @@ exports.getImageKitAuth = async (req, res, next) => {
   try {
     if (IS_DEBUG) message(MODULE, `getImageKitAuth |`, TMessage.INFO);
 
-    const response = getImageKitAuthParams();
-console.log('CLIENT REQ | getImageKitAuth response');
+    const response = await getImageKitAuthParams();
+console.log('req | getImageKitAuth response');
 console.log(response);
 
     res.statusMessage = TMessage.SUCCESS;
@@ -39,10 +40,8 @@ exports.signUp = async (req, res, next) => {
 
     printObject(req.body);
 
-console.log('CLIENT REQ | signUp body');
-console.log(req.body);
-    const response = mailerSignUp(req.body);
-console.log('CLIENT REQ | signUp response');
+    const response = await mailerSignUp(req.body);
+console.log('req response');
 console.log(response);
 
     res.statusMessage = TMessage.SUCCESS;
@@ -59,21 +58,12 @@ exports.verifyEmail = async (req, res, next) => {
   try {
     if (IS_DEBUG) message(MODULE, `verifyEmail |`, TMessage.INFO);
 
-    printObject(req.body);
+    printObject(req.query);
 
-console.log('CLIENT REQ | verifyEmail body');
-console.log(req.body);
-    const response = mailerSend(req.body);
-console.log('CLIENT REQ | verifyEmail response');
+    const response = await mailerVerify(req.query.code);
+console.log('req response');
 console.log(response);
 
-/*
-    const response = got({
-      url: `http://${HOSTNAME}:${PORT}${ROUTES['DATABASE']['ADS']}`,
-      method: 'POST',
-      json: req.body
-    }).json();
-*/
     res.statusMessage = TMessage.SUCCESS;
     res.status(200).json(await response);
 
@@ -90,10 +80,8 @@ exports.signIn = async (req, res, next) => {
 
     printObject(req.body);
 
-console.log('CLIENT REQ | signIn body');
-console.log(req.body);
-    const response = mailerSignIn(req.body);
-console.log('CLIENT REQ | signIn response');
+    const response = await mailerSignIn(req.body);
+console.log('req response');
 console.log(response);
 
     res.statusMessage = TMessage.SUCCESS;

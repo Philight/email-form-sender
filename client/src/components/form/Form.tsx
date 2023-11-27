@@ -41,7 +41,11 @@ export const Form = (props: ComponentProps) => {
               <TextField
                 key={fieldName}
                 id={fieldName}
-                className={[`form-page__form-field`, fields[fieldName].type, !editable && 'disabled'].css()}
+                className={[
+                  `form-page__form-field`,
+                  fields[fieldName].type,
+                  !editable && 'disabled',
+                ].css()}
                 variant="standard"
                 type={fields[fieldName].type}
                 label={fields[fieldName].label}
@@ -57,7 +61,11 @@ export const Form = (props: ComponentProps) => {
             ) : fields[fieldName].type === 'textarea' ? (
               <TextareaField
                 key={fieldName}
-                className={[`form-page__form-field`, fields[fieldName].type, !editable && 'disabled'].css()}
+                className={[
+                  `form-page__form-field`,
+                  fields[fieldName].type,
+                  !editable && 'disabled',
+                ].css()}
                 fieldName={fieldName}
                 fields={fields}
                 defaultValue={formData[fieldName]}
@@ -81,7 +89,11 @@ export const Form = (props: ComponentProps) => {
                 <AttachmentsField
                   key={fieldName}
                   fieldName={fieldName}
-                  className={[`form-page__form-field`, fields[fieldName].type, !editable && 'disabled'].css()}
+                  className={[
+                    `form-page__form-field`,
+                    fields[fieldName].type,
+                    !editable && 'disabled',
+                  ].css()}
                   fields={fields}
                   defaultValue={formData[fieldName]}
                   value={values[fieldName]}

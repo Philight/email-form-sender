@@ -23,7 +23,6 @@ export const getMeHandler = async (
         name: user.name,
         email: user.email,
         photo: user.photo!,
-        provider: user.provider!,
         role: user.role!,
         created_at: {
           seconds: user.created_at.getTime() / 1000,

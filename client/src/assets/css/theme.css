@@ -115,6 +115,9 @@
   @apply font-subheading;
   @apply text-purple-light;
 }
+.subheading--xl {
+  @apply text-3xl;
+}
 .subheading--lg {
   @apply text-2xl;
 }

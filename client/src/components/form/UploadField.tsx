@@ -67,7 +67,7 @@ export const UploadField = ({
       .then(tokens => {
         imagekit
           .upload({
-            folder: '/email_form_sender',
+            folder: '/email_form_sender/upload',
             file: fileToUpload,
             fileName: fileToUpload.name,
             ...tokens,
@@ -83,7 +83,7 @@ export const UploadField = ({
             console.log('value added', [...oldValue, uploadedURL]);
             //            setUploaded(prevUploaded => [...prevUploaded, uploadedURL]);
             //            onFieldChange('attachments', [...oldValue, uploadedURL])();
-            onFieldChange('attachments', uploadedURL)();
+            onFieldChange('attachments', uploadedURL, 'add')();
 
             setLoading(false);
             setError(null);
@@ -113,6 +113,10 @@ export const UploadField = ({
       };
 
       if (acceptedFiles) {
+        if (acceptedFiles.length > 5) {
+          cancelUpload(new Error('Max 5 attachments allowed'));
+          return;
+        }
         for (const file of acceptedFiles) {
           // Custom validations
           if (file.size / 1024 / 1024 > 1) {

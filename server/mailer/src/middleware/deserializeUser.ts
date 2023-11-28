@@ -21,16 +21,17 @@ export const deserializeUser = async (
     if (!decoded) {
       return null;
     }
-
+/*
     // Check if user has a valid session
     const session = await redisClient.get(decoded.sub);
 
     if (!session) {
       return null;
     }
-
+*/
     // Check if user still exist
-    const user = await findUniqueUser({ id: JSON.parse(session).id });
+//    const user = await findUniqueUser({ id: JSON.parse(session).id });
+    const user = await findUniqueUser({ id: decoded.sub });
 
     if (!user) {
       return null;

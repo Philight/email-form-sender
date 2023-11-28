@@ -7,6 +7,15 @@ import { Icon } from '@components/graphic';
 
 import { Props } from 'default-types';
 interface ComponentProps extends Props {
+  currentStage?:
+    | 'landing'
+    | 'signin'
+    | 'signup'
+    | 'recipients'
+    | 'body'
+    | 'attachments'
+    | 'summary'
+    | 'send';
   nextStage?:
     | 'landing'
     | 'signin'
@@ -34,6 +43,7 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
     style,
 
     isPrev,
+    currentStage,
     nextStage,
     stageIndex,
 
@@ -45,7 +55,8 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
 
   const navigate = useNavigate();
   const context = useDataContext();
-
+console.log('currentStage', currentStage)
+console.log('nextStage', nextStage)
   const handleClick = e => {
     e.preventDefault();
     if (nextStage) {
@@ -58,11 +69,14 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
     }
   };
 
-  const getIcon = () => {
+  const getIcon = (): string => {
     switch (nextStage) {
       case 'landing':
         return 'arrow-left';
       case 'recipients':
+        if (currentStage === 'summary') {
+          return 'envelope-fill';
+        }
       case 'body':
       case 'attachments':
         return 'nav-arrow';
@@ -72,29 +86,9 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
         return 'envelope-fill';
     }
   };
-  const renderIcon = () => {
-    switch (nextStage) {
-      case 'landing':
-        return <Icon icon="arrow-left" />;
-      case 'recipients':
-      case 'body':
-      case 'attachments':
-        return (
-          <>
-            <Icon icon="nav-arrow" />
-            <Box className={['tooltip f-center'].css()}>
-              <span>{stageIndex}</span>
-            </Box>
-          </>
-        );
-      case 'summary':
-        return <Icon icon="summary" />;
-      case 'send':
-        return <Icon icon="envelope-fill" />;
-    }
-  };
 
   const icon = iconFromProps ?? getIcon();
+  const withTooltip = ['recipients', 'body', 'attachments'].includes(icon) ?? false;
 
   return (
     <IconButton
@@ -109,7 +103,10 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
       disabled={disabled}
       style={style}
     >
-      {renderIcon()}
+      <Icon icon={icon} />
+      {withTooltip && <Box className={['tooltip f-center'].css()}>
+        <span>{stageIndex}</span>
+      </Box>}
     </IconButton>
   );
 };

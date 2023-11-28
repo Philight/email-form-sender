@@ -8,6 +8,7 @@ export interface SendEmailInput {
   'subject'?: (string);
   'body'?: (string);
   'attachments'?: (string);
+  'access_token'?: (string);
 }
 
 export interface SendEmailInput__Output {
@@ -17,4 +18,5 @@ export interface SendEmailInput__Output {
   'subject': (string);
   'body': (string);
   'attachments': (string);
+  'access_token': (string);
 }

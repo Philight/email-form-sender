@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import {
-  Backdrop,
-} from '@mui/material';
+import { Backdrop } from '@mui/material';
 import { Icon, Layer } from '@components/graphic';
 import { Props } from 'default-types';
 
@@ -27,15 +25,25 @@ export const Loader = (props: ComponentProps) => {
 
   return (
     <motion.div
-      className={[`loader__c f-center`, fullscreen && 'full-screen', overlayed && 'overlayed', className].css()}
+      className={[
+        `loader__c f-center`,
+        fullscreen && 'full-screen',
+        overlayed && 'overlayed',
+        className,
+      ].css()}
       style={style}
       onClick={onClick}
     >
       <Backdrop className={'loader__background'} open={true} />
-{/*
+      {/*
       <Layer className={'loader__background abs-center fill-parent'} />
 */}
-      <Icon icon="4-bars" isMultiColor animate={ANIM_PULSE.animate} transition={ANIM_PULSE.transition} />
+      <Icon
+        icon="4-bars"
+        isMultiColor
+        animate={ANIM_PULSE.animate}
+        transition={ANIM_PULSE.transition}
+      />
     </motion.div>
   );
 };

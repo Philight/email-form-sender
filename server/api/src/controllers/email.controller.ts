@@ -15,8 +15,6 @@ exports.sendEmail = async (req, res, next) => {
 
     printObject(req.body);
 
-console.log('API | sendEmail req');
-console.log(req.body);
     const response = mailerSend(req.body);
 console.log('API | sendEmail response');
 console.log(response);

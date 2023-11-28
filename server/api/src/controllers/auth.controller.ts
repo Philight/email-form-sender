@@ -7,6 +7,7 @@ import {
   mailerVerify,
   mailerSignIn,
   mailerSend,
+  mailerGetMe,
 } from '../utils/connectGRPC';
 import { message, TMessage, printObject } from '../utils/logger';
 
@@ -89,6 +90,26 @@ console.log(response);
 
   } catch (err) {
     message(MODULE, `signIn >> `+err + (err&&err.stack), TMessage.ERROR);
+    res.statusMessage = TMessage.ERROR;
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getMe = async (req, res, next) => {
+  try {
+    if (IS_DEBUG) message(MODULE, `getMe |`, TMessage.INFO);
+
+    printObject(req.body);
+
+    const response = await mailerGetMe(req.body);
+console.log('req response');
+console.log(response);
+
+    res.statusMessage = TMessage.SUCCESS;
+    res.status(200).json(await response);
+
+  } catch (err) {
+    message(MODULE, `getMe >> `+err + (err&&err.stack), TMessage.ERROR);
     res.statusMessage = TMessage.ERROR;
     res.status(500).json({ error: err.message });
   }

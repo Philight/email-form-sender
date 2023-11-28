@@ -28,24 +28,33 @@ interface ComponentProps extends Props {
 }
 
 export const AlertBox = ({
-  className, type, title: titleFromProps, message, onClick
+  className,
+  type,
+  title: titleFromProps,
+  message,
+  onClick,
 }: ComponentProps) => {
-
   const title = titleFromProps ?? (type === 'success' ? 'Success' : 'Error');
   const icon = type === 'success' ? 'checkmark-circle' : type === 'error' ? 'x-mark-circle' : '';
 
   return (
-    <Paper className={['alert-box__c f-col f-center', className, type].css()} elevation={12} onClick={onClick}>
-      {!!type && <>
-        <Icon icon={icon} />
-        <Typography variant="h3" className={[``].css()} align="center">
-          {title}
-        </Typography>
-        <Divider className="divider w-full" variant="fullWidth" />
-        <Typography variant="h4" className={[``].css()} align="center">
-          {message}
-        </Typography>
-      </>}
+    <Paper
+      className={['alert-box__c f-col f-center', className, type].css()}
+      elevation={12}
+      onClick={onClick}
+    >
+      {!!type && (
+        <>
+          <Icon icon={icon} />
+          <Typography variant="h3" className={[``].css()} align="center">
+            {title}
+          </Typography>
+          <Divider className="divider w-full" variant="fullWidth" />
+          <Typography variant="h4" className={[``].css()} align="center">
+            {message}
+          </Typography>
+        </>
+      )}
     </Paper>
   );
 };

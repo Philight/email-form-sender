@@ -177,6 +177,13 @@
 
 .btn--standard {
   @apply bg-purple-primary text-white-primary;
+  &.gradient {
+    background: linear-gradient(
+      125deg,
+      rgba(var(--color-blue-primary) / 1) 0%,
+      rgba(var(--color-purple-primary) / 1) 100%
+    );
+  }
   /*
   transition:
     background-color 0.5s ease-in-out,

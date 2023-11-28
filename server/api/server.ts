@@ -2,6 +2,8 @@ import express from "express"
 import * as dotenv from "dotenv";
 dotenv.config();
 import cors from 'cors';
+import got from 'got';
+//let got = await import('got')
 import bodyParser from 'body-parser';
 import path from 'path';
 import http from 'http';
@@ -65,9 +67,12 @@ const initialActions = async () => {
 //    await sendTestEmail();
 
     /*
-    const resp = await got('http://localhost:5555/db/ads', {
-      method: 'PUT',
-      json: {a: 3},
+    const resp = await got('http://localhost:8000/auth/v1/sign-in', {
+      method: 'POST',
+      json: {
+        email: 'lai.filip@gmail.com',
+        password: 'game22',
+      },
     });   
     */ 
 }

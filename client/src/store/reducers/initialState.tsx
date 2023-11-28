@@ -12,16 +12,7 @@ export interface IStateType {
   formData: {
     [key: string]: string | string[];
   };
-  formStage:
-    | 'landing'
-    | 'signin'
-    | 'signup'
-    | 'recipients'
-    | 'body'
-    | 'pictures'
-    | 'summary'
-    | 'send';
-  //  formStage: number;
+  formStage: 'landing' | 'signin' | 'signup' | 'recipients' | 'body' | 'pictures' | 'summary';
 }
 
 const RECIPIENTS_FIELDS = {
@@ -162,4 +153,5 @@ export const initialState: IStateType = {
   formStage: 'landing',
   //  isLoggedIn: false,
   imageKitTokens: {},
+  user: {},
 };

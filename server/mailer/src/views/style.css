@@ -1,5 +1,4 @@
-style.
-    /* -------------------------------------
+  /* -------------------------------------
   VARIABLES
   ------------------------------------- */
   :root {
@@ -95,11 +94,16 @@ style.
     background-color: #fafafa;
     padding: 24px;
   }
+  .inner-content p {
+    white-space: pre-wrap;
+  }
   .signature {
-    padding: 40px;
+    padding-top: 40px;
     padding-bottom: 80px;
   }
   .attachments {
+    padding-left: 40px;
+    padding-right: 40px;
     padding-bottom: 80px;
   }
   .attachments p {
@@ -108,8 +112,7 @@ style.
   .attachments img {
     width: 95px;
     border-radius: 100px;
-    padding-bottom: 80px;
-  }
+  }  
   .footer {
   clear: both;
   text-align: center;

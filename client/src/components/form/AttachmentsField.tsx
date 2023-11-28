@@ -45,10 +45,9 @@ export const AttachmentsField = ({
     // console.log('removeUploaded', attachments);
     // console.log('removeUploaded', [...attachments.splice(fileIndex, 1)]);
     // console.log('removeUploaded attachments', attachments);
-    const newValue = attachments.slice(0, fileIndex).concat(attachments.slice(fileIndex + 1));
+    //    const newValue = attachments.length === 1 ? [] : attachments.slice(0, fileIndex).concat(attachments.slice(fileIndex + 1));
 
-    // console.log('removeUploaded newValue', newValue);
-    onFieldChange(fieldName, newValue)();
+    onFieldChange(fieldName, fileIndex, 'remove')();
   };
 
   return attachments.length > 0 ? (

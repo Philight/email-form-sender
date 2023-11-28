@@ -18,7 +18,7 @@
 
 .loader__c {
   &.overlayed {
-    @apply fixed z-10 top-0 left-0;
+    @apply fixed left-0 top-0 z-10;
   }
   .loader__background {
     @apply bg-[#03002e]/80;
@@ -216,7 +216,7 @@
 }
 
 .layout__c {
-  @apply relative min-h-screen justify-between;
+  @apply relative min-h-screen justify-between overflow-hidden;
   .background {
     @apply -z-30;
   }
@@ -234,7 +234,7 @@
   /*
   @apply absolute bottom-[var(--gutter-outer-x)]; 
   */
-  @apply mb-[var(--gutter-outer-x)] flex w-full items-center justify-between;
+  @apply flex w-full items-center justify-between pb-[var(--gutter-outer-x)];
   .footer__logos {
     @apply w-full justify-between;
     .icon__c {
@@ -279,7 +279,7 @@
   }
   .form-page__alert {
     @apply page-max-w;
-    @apply w-full absolute z-10;
+    @apply absolute z-10 w-full;
     .alert-box__c {
       @apply px-[var(--gutter-outer-x)] pb-[calc(var(--gutter-outer-y)*3/2)] pt-[var(--gutter-outer-y)];
       &.success {
@@ -294,7 +294,7 @@
         }
         h4 {
           @apply text-green-material;
-        }        
+        }
       }
       &.error {
         .icon {
@@ -311,12 +311,12 @@
         }
       }
       .icon__c {
-        @apply w-9 h-9;
+        @apply h-9 w-9;
       }
       h3 {
         @apply subheading subheading--xl;
         @apply font-medium;
-        @apply mt-4 mb-8;
+        @apply mb-8 mt-4;
       }
       h4 {
         @apply subheading subheading--md;

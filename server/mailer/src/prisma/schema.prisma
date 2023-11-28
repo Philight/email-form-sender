@@ -19,7 +19,7 @@ model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String @unique
-  photo String? @default("default.png")
+  photo String? @default("https://tlr.stripocdn.email/content/guids/CABINET_055ba03e85e991c70304fecd78a2dceaf6b3f0bc1b0eb49336463d3599679494/images/pexelspixabay415829.jpeg")
   
   password String
   role RoleEnumType? @default(user)

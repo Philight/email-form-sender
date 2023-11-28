@@ -24,9 +24,9 @@ export const Icon = forwardRef<Ref, ComponentProps>((props, ref) => {
   const {
     className,
     style,
-    icon = icon.toLowerCase(),
+    icon: iconFromProps,
     isMultiColor: isMultiColorFromProps,
-    alt = `icon: ${icon}`,
+    alt = `icon: ${iconFromProps}`,
     title,
     onClick,
     link,
@@ -35,7 +35,9 @@ export const Icon = forwardRef<Ref, ComponentProps>((props, ref) => {
     transition,
   } = props;
 
-  const isMultiColor: boolean = isMultiColorFromProps || ['kk-primetech', 'coffee-2', 'arrow-nav-down'].includes(icon);
+  const icon = iconFromProps?.toLowerCase();
+  const isMultiColor: boolean =
+    isMultiColorFromProps || ['kk-primetech', 'coffee-2', 'arrow-nav-down'].includes(icon);
 
   const { error, loading, svgIcon } = useDynamicFileImport(icon, {
     fileType: 'icons',

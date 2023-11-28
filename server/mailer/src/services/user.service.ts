@@ -39,11 +39,12 @@ export const updateUser = async (
 };
 
 export const signTokens = async (user: Prisma.UserCreateInput) => {
+/*
   // 1. Create Session
   redisClient.set(`${user.id}`, JSON.stringify(user), {
     EX: customConfig.redisCacheExpiresIn * 60,
   });
-
+*/
   // 2. Create Access and Refresh tokens
   const access_token = signJwt({ sub: user.id }, 'accessTokenPrivateKey', {
     expiresIn: `${customConfig.accessTokenExpiresIn}m`,

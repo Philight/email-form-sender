@@ -6,10 +6,11 @@ const IS_DEBUG = Boolean(process.env.IS_DEBUG) ?? false;
 const MODULE = path.basename(__filename).replace('.js', '');
 
 const validationSchema = Joi.object({
+/*
   from: Joi.string()
     .email({ minDomainSegments: 2 })
     .required(),
-
+*/
   to: Joi.string()
     .email({ minDomainSegments: 2 })
     .required(),
@@ -29,7 +30,7 @@ const validationSchema = Joi.object({
     .items(Joi.string()
       .uri()
     ),    
-}).options({ abortEarly: false })
+}).options({ abortEarly: false, allowUnknown: true })
 
 
 export const validateEmailFields = async (req, res, next) => {

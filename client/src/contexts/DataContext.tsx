@@ -43,6 +43,15 @@ export const DataProvider = ({ children }: PropsWithChildren<T>): React.FC<React
     });
   };
 
+  const setUser = (user: unknown): void => {
+    dispatch({
+      type: 'SET_USER',
+      payload: {
+        user,
+      },
+    });
+  };
+
   const updateFields = (updatedFields: { [key: string]: string }): void => {
     dispatch({
       type: 'UPDATE_FIELDS',
@@ -56,10 +65,12 @@ export const DataProvider = ({ children }: PropsWithChildren<T>): React.FC<React
     pageData: state.pageData,
     formStage: state.formStage,
     formData: state.formData,
+    user: state.user,
     updateFields,
     setFormStage,
     setLoading,
     setError,
+    setUser,
   };
 
   return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

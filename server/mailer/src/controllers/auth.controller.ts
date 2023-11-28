@@ -32,6 +32,7 @@ export const registerHandler = async (
   try {
     console.log('MAILER | registerHandler req', req.request);
     const hashedPassword = await bcrypt.hash(req.request.password, 12);
+
     const user = await createUser({
       email: req.request.email.toLowerCase(),
       name: req.request.name,
@@ -79,6 +80,7 @@ export const loginHandler = async (
   res: grpc.sendUnaryData<SignInUserResponse__Output>
 ) => {
   try {
+    console.log('MAILER | loginHandler req', req.request);
     // Get the user from the collection
     const user = await findUser({ email: req.request.email });
 
@@ -99,6 +101,19 @@ export const loginHandler = async (
 
     // Create the Access and refresh Tokens
     const { access_token, refresh_token } = await signTokens(user);
+
+    // Validate the Refresh token
+    const decodedAcc = verifyJwt<{ sub: string }>(
+      access_token,
+      'accessTokenPublicKey'
+    );
+    const decodedRef = verifyJwt<{ sub: string }>(
+      refresh_token,
+      'refreshTokenPublicKey'
+    );
+
+    console.log('accessTokenPublicKey', decodedAcc)
+    console.log('refreshTokenPublicKey', decodedRef)
 
     // Send Access Token
     res(null, {
@@ -143,7 +158,7 @@ export const refreshAccessTokenHandler = async (
       });
       return;
     }
-
+/*
     // Check if the user has a valid session
     const session = await redisClient.get(decoded?.sub);
     if (!session) {
@@ -153,7 +168,7 @@ export const refreshAccessTokenHandler = async (
       });
       return;
     }
-
+*/
     // Check if the user exist
     const user = await findUniqueUser({ id: JSON.parse(session).id });
 

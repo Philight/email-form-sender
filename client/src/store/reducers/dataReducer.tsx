@@ -1,7 +1,16 @@
 export const STAGES = {
-  FORM: ['landing', 'recipients', 'body', 'attachments', 'summary', 'send'],
-  LOGIN: ['landing', 'signin'],
-  REGISTER: ['landing', 'signup', 'signin', 'recipients', 'body', 'attachments', 'summary', 'send'],
+  FORM: ['landing', 'recipients', 'body', 'attachments', 'summary', 'recipients'],
+  LOGIN: ['landing', 'signin', 'recipients', 'body', 'attachments', 'summary', 'recipients'],
+  REGISTER: [
+    'landing',
+    'signup',
+    'signin',
+    'recipients',
+    'body',
+    'attachments',
+    'summary',
+    'recipients',
+  ],
 };
 
 export const getStageInfo = (stageName: string) => {
@@ -22,7 +31,7 @@ export const getStageInfo = (stageName: string) => {
 
 const dataReducer = (state, action) => {
   const { type, payload } = action;
-  const { imageKitTokens, formStage, updatedFields } = payload;
+  const { formStage, user, updatedFields } = payload;
 
   switch (type) {
     case 'SET_STAGE':
@@ -30,6 +39,12 @@ const dataReducer = (state, action) => {
       return {
         ...state,
         formStage,
+      };
+    case 'SET_USER':
+      console.log('SET_USER', payload);
+      return {
+        ...state,
+        user,
       };
     case 'UPDATE_FIELDS':
       console.log('UPDATE_FIELDS', payload);

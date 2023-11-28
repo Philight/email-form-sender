@@ -24,6 +24,7 @@ export const Header = (props: ComponentProps) => {
         {!!stageInfo.prevStage && (
           <NavigationArrow
             className={[``].css()}
+            currentStage={stageInfo.currentStage}
             nextStage={stageInfo.prevStage}
             stageIndex={stageInfo.stageIndex - 1}
             link={stageInfo.prevStage === 'landing' && '/'}
@@ -36,6 +37,7 @@ export const Header = (props: ComponentProps) => {
         {!!stageInfo.nextStage && (
           <NavigationArrow
             className={[``].css()}
+            currentStage={stageInfo.currentStage}
             nextStage={stageInfo.nextStage}
             stageIndex={stageInfo.stageIndex + 1}
           />

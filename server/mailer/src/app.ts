@@ -68,6 +68,6 @@ server.bindAsync(
     server.start();
     console.log(`🚀 MAILER: gRPC Server listening on ${port}`);
     connectDB();
-    connectRedis();
+//    connectRedis();
   }
 );

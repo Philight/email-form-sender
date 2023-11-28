@@ -41,7 +41,6 @@ client.waitForReady(deadline, (err) => {
   console.log('API | Testing connection to gRPC | GRPC PORT..', PORT, customConfig.port);
   console.log('API | Testing connection to gRPC | API PORT..', PORT, customConfig.apiPort);
   console.log('API | Testing connection to gRPC | GRPC CONFIG..', customConfig.dbUri, customConfig.isDebug, customConfig.routes);
-/*
   const testEmailBody = {
     'from': 'obd.sf.test01@gmail.com',
     'to': 'lai.filip@gmail.com',
@@ -58,7 +57,7 @@ client.waitForReady(deadline, (err) => {
     }
     console.log(res);
   });
-*/
+/*
   client.SignUpUser(
     {
       name: 'Admin',
@@ -75,6 +74,7 @@ client.waitForReady(deadline, (err) => {
       console.log(res);
     }
   );  
+*/
 
 });
 
@@ -84,9 +84,6 @@ client.waitForReady(deadline, (err) => {
 *********/
 
 const signUpUser = async (user) => {
-  console.log(`API | Calling gRPC | SignUpUser`)
-  console.log(user)
-
   return await new Promise((resolve, reject) => {
     client.SignUpUser(user, (err, res) => {
       if (err) {

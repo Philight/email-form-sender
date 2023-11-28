@@ -8,7 +8,9 @@ export const getMeHandler = async (
   res: grpc.sendUnaryData<UserResponse>
 ) => {
   try {
+    console.log('getMeHandler req.request', req.request);
     const user = await deserializeUser(req.request.access_token);
+    console.log('getMeHandler', user);
     if (!user) {
       res({
         code: grpc.status.NOT_FOUND,

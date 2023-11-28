@@ -11,6 +11,7 @@ export default class Email {
   redirectUrl?: string;
 
   from?: string;
+  photo?: string;
   to?: string;
   cc?: string | string[];
   subject?: string;
@@ -24,6 +25,7 @@ console.log(args);
 
     if (email) {
       this.from = email?.from;
+      this.photo = user?.photo;
       this.to = email?.to;
       this.cc = email?.cc;
       this.subject = email?.subject;
@@ -59,6 +61,9 @@ console.log('Email class send');
       firstName: this.firstName,
       subject,
       redirectUrl: this.redirectUrl,
+      photo: this.photo,
+      body: this.body,
+      attachments: this.attachments,
     });
 
     // Create mailOptions

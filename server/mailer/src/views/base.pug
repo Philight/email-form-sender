@@ -1,45 +1,90 @@
 doctype html
 html
   head
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(name='x-apple-disable-message-reformatting')
+    meta(name='format-detection' content='telephone=no')
     meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
     title #{subject}
-    include _styles
+    link(href='https://fonts.googleapis.com/css2?family=Imprima&display=swap' rel='stylesheet')
+    style
+      include style.css
   body
     table.body(role='presentation' border='0' cellpadding='0' cellspacing='0')
       tbody
         tr
-          td  
+          td &nbsp;
           td.container
             .content
               // START CENTERED WHITE CONTAINER
+              table.header(role='presentation')
+                tbody
+                  tr
+                    td.logo(align='center')
+                      img(src='https://ik.imagekit.io/0ovzivqyfai/email_form_sender/assets/logo-email_hNE-ahHKi.svg?updatedAt=1701178561407' alt='Logo' style='-ms-interpolation-mode:bicubic' height='48' title='Logo')
               table.main(role='presentation')
                 // START MAIN CONTENT AREA
                 tbody
+                  tr
+                    td.profile(align='center')
+                      img(src=`${photo}` alt='Profile photo' style='-ms-interpolation-mode:bicubic' height='48' title='Profile photo')
                   tr
                     td.wrapper
                       table(role='presentation' border='0' cellpadding='0' cellspacing='0')
                         tbody
                           tr
-                            td
+                            // CONTENT
+                            td.inner-content
                               block content
+                            // END CONTENT
+                          tr
+                            td.signature
+                              img(src=`${attachments && attachments.split(',')[0]}` title='Signature')
+                          tr
+                            td.attachments
+                              p
+                                if(attachments != undefined)
+                                  each a in attachments.split(',')
+                                    img(src=`${a}` alt='Attachment' title='Attachment')
                   // END MAIN CONTENT AREA
                   // END CENTERED WHITE CONTAINER
-                  // START FOOTER
-                  .footer
-                    table(role='presentation' border='0' cellpadding='0' cellspacing='0')
-                      tbody
-                        tr
-                          td.content-block
-                            span.apple-link Company Inc, 3 Abbey Road, San Francisco CA 94102
-                            br
-                            |  Don't like these emails? 
-                            a(href='http://i.imgur.com/CScmqnj.gif') Unsubscribe
-                            | .
-                        tr
-                          td.content-block.powered-by
-                            | Powered by 
-                            a(href='http://htmlemail.io') HTMLemail
-                            | .
-                  // END FOOTER
-          td  
+              // START FOOTER
+              table.footer(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                tbody
+                  tr
+                    td.footer-block.logo(align='center')
+                      img(src='https://ik.imagekit.io/0ovzivqyfai/email_form_sender/assets/logo-email_hNE-ahHKi.svg?updatedAt=1701178561407' alt='Logo' style='-ms-interpolation-mode:bicubic' height='48' title='Logo')
+                  tr
+                    td.footer-block.links
+                      table.social(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                        tbody
+                          tr
+                            td
+                              img(src='https://tlr.stripocdn.email/content/assets/img/social-icons/logo-black/twitter-logo-black.png' alt='Tw' title='Twitter' height='24' style='-ms-interpolation-mode:bicubic')
+                            td
+                              img(src='https://tlr.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png' alt='Fb' title='Facebook' height='24' style='-ms-interpolation-mode:bicubic')
+                            td
+                              img(src='https://tlr.stripocdn.email/content/assets/img/social-icons/logo-black/linkedin-logo-black.png' alt='In' title='Linkedin' height='24' style='-ms-interpolation-mode:bicubic')
+                      table.policies(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                        tbody
+                          tr
+                            td.footer-block.policies
+                              a(target='_blank' style='-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#2D3142;font-size:14px' href='') Privacy Policy
+                              |  &bull; 
+                              a(target='_blank' style='-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#2D3142;font-size:14px' href='') Terms &amp; Conditions
+                  tr
+                    td.footer-block
+                      span.apple-link Copyright &copy; 2024 Company Inc, 3 Abbey Road, San Francisco CA 94102
+                  tr
+                    td.footer-block
+                      | Don&apos;t like these emails? 
+                      a(href='http://i.imgur.com/CScmqnj.gif') Unsubscribe
+                  tr
+                    td.footer-block.powered-by
+                      | Powered by 
+                      a(href='http://htmlemail.io') Pug
+                      | .
+              // END FOOTER
+          td &nbsp;

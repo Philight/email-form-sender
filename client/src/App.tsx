@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 
 const LandingLayout = lazy(() => import('@layouts/LandingLayout'));
 const FormLayout = lazy(() => import('@layouts/FormLayout'));
@@ -20,6 +21,7 @@ const ROUTE_TO_PAGE = {
     '/': 'LandingPage',
   },
   FORM: {
+    '/form': 'FormPage',
     '/login': 'FormPage',
     '/register': 'FormPage',
   },
@@ -38,21 +40,23 @@ const App = () => {
     <BrowserRouter basename={PACKAGE_JSON.config.BASENAME}>
       <ScrollToTop>
         <Suspense fallback={<Loader fullscreen />}>
-          <DataProvider>
-            <Routes>
-              <Route element={<LandingLayout />}>
-                {ROUTES.LANDING.map((route, i) => (
-                  <Route key={i} path={route} Component={landingLayoutImports[route]} />
-                ))}
-              </Route>
-              <Route element={<FormLayout />}>
-                {ROUTES.FORM.map((route, i) => (
-                  <Route key={i} path={route} Component={formLayoutImports[route]} />
-                ))}
-              </Route>
-              <Route path="/style-guide" element={<StyleGuide />} />
-            </Routes>
-          </DataProvider>
+          <CookiesProvider defaultSetOptions={{ path: '/' }}>
+            <DataProvider>
+              <Routes>
+                <Route element={<LandingLayout />}>
+                  {ROUTES.LANDING.map((route, i) => (
+                    <Route key={i} path={route} Component={landingLayoutImports[route]} />
+                  ))}
+                </Route>
+                <Route element={<FormLayout />}>
+                  {ROUTES.FORM.map((route, i) => (
+                    <Route key={i} path={route} Component={formLayoutImports[route]} />
+                  ))}
+                </Route>
+                <Route path="/style-guide" element={<StyleGuide />} />
+              </Routes>
+            </DataProvider>
+          </CookiesProvider>
         </Suspense>
       </ScrollToTop>
     </BrowserRouter>

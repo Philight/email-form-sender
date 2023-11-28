@@ -25,6 +25,7 @@ export const NavigationButton = (props: ComponentProps): JSX.Element | null => {
     style,
     type,
     variant = 'standard',
+    color,
     size = 'md',
     icon,
     label,
@@ -57,6 +58,7 @@ export const NavigationButton = (props: ComponentProps): JSX.Element | null => {
           variant && `button--${variant}`,
           size && `button--${size}`,
           !withShadow && 'no-shadow',
+          color,
         ].css()}
         type={type}
         variant={variant === 'outline' ? 'outlined' : 'contained'}

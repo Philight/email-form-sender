@@ -1,8 +1,9 @@
 # Email sender: Fullstack app
-- FE: Vite + React + TypeScript + TailwindCSS
-- BE: Express API server + gRPC MAILER server
+> FE: Vite + React + TypeScript + TailwindCSS
 
-## Description:
+> BE: Express API server + gRPC MAILER server
+
+### Description:
 
 - Authenticated client - server app for sending emails via nodemailer
 
@@ -60,8 +61,7 @@
 ## ⚙️ AVAILABLE SCRIPTS
 
 In the root directory, you can run:
-
-### `npm run start`
-
-`Installs packages and runs API server, gRPC server and frontend client concurrently on localhost.`
-- Available at: localhost:8000, localhost:9000 and localhost:4001 respectively.
+```
+npm run start
+```
+- Installs packages and runs API server, gRPC server and frontend client concurrently on localhost. Available at: localhost:8000, localhost:9000 and localhost:4001 respectively.

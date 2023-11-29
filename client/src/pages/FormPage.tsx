@@ -85,7 +85,8 @@ const FormPage = (props: PageProps): JSX.Element | null => {
   useEffect(() => {
     resetForm();
     animateEffect('form', 0, 1, { ease: 'backOut', duration: 0.8 });
-  }, [formStage, animateEffect]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formStage]);
 
   const onFieldChange = useCallback(
     (fieldName: string, newValue?: unknown, operation?: 'add' | 'remove') =>

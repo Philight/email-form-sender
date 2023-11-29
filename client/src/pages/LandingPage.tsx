@@ -24,7 +24,7 @@ const LandingPage = (props: PageProps): JSX.Element | null => {
   const isLoggedIn =
     cookies.access_token && Date.now() < jwtDecode(cookies.access_token).exp * 1000;
   // eslint-disable-next-line no-console
-  console.log('LandingPage cookies', jwtDecode(cookies.access_token));
+  console.log('LandingPage cookies', cookies.access_token && jwtDecode(cookies.access_token));
 
   return (
     <main className={['landing-page__c f-center full-screen', className].css()}>

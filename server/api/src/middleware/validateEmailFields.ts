@@ -6,17 +6,11 @@ const IS_DEBUG = Boolean(process.env.IS_DEBUG) ?? false;
 const MODULE = path.basename(__filename).replace('.js', '');
 
 const validationSchema = Joi.object({
-/*
-  from: Joi.string()
-    .email({ minDomainSegments: 2 })
-    .required(),
-*/
   to: Joi.string()
     .email({ minDomainSegments: 2 })
     .required(),
 
-  cc: Joi.string()
-    .email({ minDomainSegments: 2, multiple: true  }),
+  cc: Joi.string(),
 
   subject: Joi.string()
     .min(5)

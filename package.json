@@ -1,0 +1,25 @@
+{
+  "name": "email-form-sender",
+  "version": "1.0.0",
+  "author": "Filip Lai",
+  "description": "",
+  "license": "ISC",
+  "config": {
+    "REPOSITORY": "https://github.com/Philight/email-form-sender.git"
+  },  
+  "scripts": {
+    "start": "npm install && concurrently --raw --kill-others --passthrough-arguments \"npm run start:server:api\" \"npm run start:server:mailer\" \"npm run start:client\"",
+    "start:client": "cd ./client && npm install && npm run-script start",
+    "start:server:api": "cd ./server/api && npm install && npm run-script start",    
+    "start:server:mailer": "cd ./server/mailer && npm install && npm run-script start",
+    "git:pull": "concurrently --raw --kill-others --passthrough-arguments \"npm run git:pull:win || npm run git:pull:linux\"",
+    "git:pull:linux": "git pull $npm_package_config_REPOSITORY --verbose",
+    "git:pull:win": "ver && git pull %npm_package_config_REPOSITORY% --verbose",
+    "git:force-pull": "concurrently --raw --kill-others --passthrough-arguments \"npm run git:force-pull:win || npm run git:force-pull:linux\"",
+    "git:force-pull:linux": "git remote add origin $npm_package_config_REPOSITORY ; git fetch --all && git reset --hard origin/master",
+    "git:force-pull:win": "ver && (git remote add origin %npm_package_config_REPOSITORY% ; git fetch --all && git reset --hard origin/master)"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }  
+}

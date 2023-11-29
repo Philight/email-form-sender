@@ -1,23 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import {
-  AppBar,
-  Button,
-  Box,
-  Toolbar,
-  Typography,
-  TextField,
-  FormControl,
-  FormGroup,
-  Paper,
-  Container,
-  Stack,
-  FormHelperText,
-  FormControlLabel,
-  LinearProgress,
-  CircularProgress,
-  FormLabel,
-  TextareaAutosize,
-} from '@mui/material';
+import React from 'react';
+import { FormControl, Paper, Stack, FormLabel } from '@mui/material';
 
 import { Icon } from '@components/graphic';
 import { Image } from '@components/media';
@@ -35,18 +17,13 @@ export const AttachmentsField = ({
   value,
   onFieldChange,
   disabled,
-}: ComponentProps) => {
+}: ComponentProps): JSX.Element | null => {
   const attachments = value ?? defaultValue;
 
   const removeUploaded = (fileIndex: number) => (): void => {
     if (disabled) {
       return;
     }
-    // console.log('removeUploaded', attachments);
-    // console.log('removeUploaded', [...attachments.splice(fileIndex, 1)]);
-    // console.log('removeUploaded attachments', attachments);
-    //    const newValue = attachments.length === 1 ? [] : attachments.slice(0, fileIndex).concat(attachments.slice(fileIndex + 1));
-
     onFieldChange(fieldName, fileIndex, 'remove')();
   };
 

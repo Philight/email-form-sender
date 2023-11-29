@@ -1,24 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import {
-  AppBar,
-  Button,
-  Box,
-  Toolbar,
-  Typography,
-  TextField,
-  FormControl,
-  FormGroup,
-  Paper,
-  Container,
-  Stack,
-  FormHelperText,
-  FormControlLabel,
-  LinearProgress,
-  CircularProgress,
-  FormLabel,
-  TextareaAutosize,
-  Divider,
-} from '@mui/material';
+import React from 'react';
+import { Typography, Paper, Divider } from '@mui/material';
 
 import { Icon } from '@components/graphic';
 
@@ -33,7 +14,7 @@ export const AlertBox = ({
   title: titleFromProps,
   message,
   onClick,
-}: ComponentProps) => {
+}: ComponentProps): JSX.Element | null => {
   const title = titleFromProps ?? (type === 'success' ? 'Success' : 'Error');
   const icon = type === 'success' ? 'checkmark-circle' : type === 'error' ? 'x-mark-circle' : '';
 

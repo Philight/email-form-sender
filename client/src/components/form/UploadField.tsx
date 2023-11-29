@@ -1,41 +1,21 @@
 import React, { useState, useCallback } from 'react';
 import {
-  AppBar,
-  Button,
-  Box,
-  Toolbar,
   Typography,
-  TextField,
   FormControl,
-  FormGroup,
-  Paper,
-  Container,
   Stack,
   FormHelperText,
-  FormControlLabel,
-  LinearProgress,
-  CircularProgress,
   FormLabel,
-  TextareaAutosize,
+  LinearProgress,
 } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
-import ImageKit from 'imagekit-javascript';
 
-import { getTokens } from '@api/imageKit';
-import { TextareaField } from '@components/form/TextareaField';
+import { getTokens, imageKit } from '@api/imageKit';
 import { Icon } from '@components/graphic';
-import { Image } from '@components/media';
-import { toCapitalCase } from '@utils/string';
 
 import { Props } from 'default-types';
 interface ComponentProps extends Props {
   onClick?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
-
-const imagekit = new ImageKit({
-  publicKey: 'public_BoLD8IW4vj4PLgREOJBXm55QDqA=',
-  urlEndpoint: 'https://ik.imagekit.io/0ovzivqyfai/emlfrmsndr/email_form_sender',
-});
 
 export const UploadField = ({
   className,
@@ -44,12 +24,9 @@ export const UploadField = ({
   defaultValue = [],
   value,
   onFieldChange,
-}: ComponentProps) => {
+}: ComponentProps): JSX.Element | null => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
-
-  console.log('UploadField value', value);
-  console.log('UploadField defaultValue', defaultValue);
 
   const cancelUpload = (errorObject): void => {
     setLoading(false);
@@ -59,13 +36,9 @@ export const UploadField = ({
   };
 
   const uploadAndSaveFile = (fileToUpload): void => {
-    console.log('-- uploadAndSaveFile');
-    console.log(fileToUpload);
-    console.log('defaultValue', defaultValue);
-    console.log('value', value);
     getTokens()
       .then(tokens => {
-        imagekit
+        imageKit
           .upload({
             folder: '/email_form_sender/upload',
             file: fileToUpload,
@@ -73,16 +46,10 @@ export const UploadField = ({
             ...tokens,
           })
           .then(result => {
-            console.log('-- uploadAndSaveFile res URL:');
-            const uploadedURL = imagekit.url({
+            const uploadedURL = imageKit.url({
               src: result.url,
               transformation: [{ height: 100, width: 100 }],
             });
-            console.log(uploadedURL);
-            const oldValue = value ?? defaultValue;
-            console.log('value added', [...oldValue, uploadedURL]);
-            //            setUploaded(prevUploaded => [...prevUploaded, uploadedURL]);
-            //            onFieldChange('attachments', [...oldValue, uploadedURL])();
             onFieldChange('attachments', uploadedURL, 'add')();
 
             setLoading(false);
@@ -118,7 +85,7 @@ export const UploadField = ({
           return;
         }
         for (const file of acceptedFiles) {
-          // Custom validations
+          // Custom Validations
           if (file.size / 1024 / 1024 > 1) {
             cancelUpload(new Error('File limit exceeded. Max size is 1 MB.'));
             return;

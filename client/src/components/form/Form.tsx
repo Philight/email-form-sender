@@ -1,23 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import {
-  AppBar,
-  Button,
-  Box,
-  Toolbar,
-  Typography,
-  TextField,
-  FormControl,
-  FormGroup,
-  Paper,
-  Container,
-  Stack,
-  FormHelperText,
-  FormControlLabel,
-  LinearProgress,
-  CircularProgress,
-  FormLabel,
-  TextareaAutosize,
-} from '@mui/material';
+import React from 'react';
+import { TextField, FormGroup, Paper } from '@mui/material';
 
 import { TextareaField, UploadField, AttachmentsField } from '@components/form';
 import { toCapitalCase } from '@utils/string';
@@ -27,13 +9,10 @@ interface ComponentProps extends Props {
   onClick?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
 
-export const Form = (props: ComponentProps) => {
+export const Form = (props: ComponentProps): JSX.Element | null => {
   const { className, fields, editable, values, formData, onFieldChange, validationErrors } = props;
-
-  console.log('Form formData, values', formData, values);
-
   return (
-    <Paper className={[`form__c`].css()} elevation={12}>
+    <Paper className={[`form__c`, className].css()} elevation={12}>
       <form noValidate>
         <FormGroup className={[`form-page__form-group`].css()}>
           {Object.keys(fields).map(fieldName =>

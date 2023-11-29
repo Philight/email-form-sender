@@ -1,24 +1,7 @@
-import React, { useCallback, useState, useEffect, forwardRef } from 'react';
-import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useCookies, Cookies } from 'react-cookie';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  TextField,
-  FormControl,
-  FormGroup,
-  Paper,
-  Container,
-  Stack,
-  FormHelperText,
-  FormControlLabel,
-  FormLabel,
-  TextareaAutosize,
-  CircularProgress,
-  Backdrop,
-} from '@mui/material';
+import { Typography, Stack } from '@mui/material';
 
 import { NavigationButton } from '@components/interactive/NavigationButton';
 import { Form, AlertBox } from '@components/form';
@@ -27,14 +10,12 @@ import { Loader } from '@components/graphic';
 import { signUpUser, signInUser, sendEmail } from '@api/mailer';
 import { useDataContext } from '@contexts/DataContext';
 import { getStageInfo } from '@store/reducers/dataReducer';
-import { toCapitalCase } from '@utils/string';
-// import { sleep } from '@utils/helpers';
 import { withPageData } from '@utils/hoc';
 
 import { Props } from 'default-types';
 interface PageProps extends Props {}
 
-const FormPage = (props: PageProps) => {
+const FormPage = (props: PageProps): JSX.Element | null => {
   const { className } = props;
 
   const context = useDataContext();
@@ -70,52 +51,18 @@ const FormPage = (props: PageProps) => {
     loader: mLoader,
     alert: mAlert,
   };
-  /* ()
-  const slideIn = async () => {
-    mSlide.set(0);
-    const animation = animate(mSlide, 1, {
-      ease: 'circIn',
-      ease: 'backOut',
-      duration: 0.8,
-      onComplete: () => {},
-    });
 
-    return () => animation.stop();
-  };
-
-  const slideOut = async () => {
-    return new Promise(resolve => {
-      mSlide.set(1);
-      const animation = animate(mSlide, 2, {
-        ease: 'anticipate',
-        ease: 'backIn',
-        ease: 'backOut',
-        duration: 0.4,
-        onComplete: () => {
-          resolve(true);
-        },
-      });
-      return () => animation.stop();
-    });
-  };
-*/
   const animateEffect = async (
     element: string,
     fromStage: number,
     toStage: number,
     options?: unknown = {},
-  ) => {
+  ): (() => void) => {
     const { delay, ease, duration } = options;
     const motionValue = ANIMATIONS[element];
     return new Promise(resolve => {
       motionValue.set(fromStage);
       const animation = animate(motionValue, toStage, {
-        /*
-        ease: 'anticipate',
-        ease: 'backIn',
-        ease: 'backOut',
-        ease: 'circIn',
-*/
         ease: ease ?? 'easeInOut',
         duration: duration ?? 0.4,
         delay: delay,
@@ -127,7 +74,7 @@ const FormPage = (props: PageProps) => {
     });
   };
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     setValues({});
     setValidationErrors({});
   };
@@ -137,16 +84,13 @@ const FormPage = (props: PageProps) => {
    */
   useEffect(() => {
     resetForm();
-    //    slideIn();
     animateEffect('form', 0, 1, { ease: 'backOut', duration: 0.8 });
-  }, [formStage]);
+  }, [formStage, animateEffect]);
 
   const onFieldChange = useCallback(
     (fieldName: string, newValue?: unknown, operation?: 'add' | 'remove') =>
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('onFieldChange', fieldName, newValue, e?.target.value);
-
-        const newAttachments = prevValues => {
+        const newAttachments = (prevValues): [] => {
           if (operation === 'add') {
             return 'attachments' in prevValues ? [...prevValues.attachments, newValue] : [newValue];
           } else if (operation === 'remove') {
@@ -173,11 +117,8 @@ const FormPage = (props: PageProps) => {
     [],
   );
 
-  const onSubmit = event => {
+  const onSubmit = (event): void => {
     event.preventDefault();
-    console.log('onSubmit', formData);
-    console.log(context.formData);
-    console.log(values);
 
     // Skip validations and go to Next stage
     if (formStage === 'landing' || formStage === 'attachments') {
@@ -201,7 +142,6 @@ const FormPage = (props: PageProps) => {
     const callAPI = (): void => {
       // Animate Exit and Fetch API
       animateEffect('form', 1, 2, { ease: 'backOut', duration: 0.4 }).then(async animated => {
-        console.log('animated', animated);
         let response: unknown;
 
         // Submit
@@ -222,7 +162,6 @@ const FormPage = (props: PageProps) => {
           return;
         }
 
-        console.log('response', response);
         if (response instanceof Error) {
           setAlert({ type: 'error', title: 'Error', message: response?.response?.data?.error });
           animateEffect('alert', 0, 1);
@@ -249,7 +188,6 @@ const FormPage = (props: PageProps) => {
           callAPI();
         })
         .catch(err => {
-          console.log('FormPage', err);
           const validErrors = err.inner.reduce((acc, error) => {
             return {
               ...acc,
@@ -263,13 +201,13 @@ const FormPage = (props: PageProps) => {
     }
   };
 
-  const buttonLabelProps = () => {
-    if (stageInfo.currentStage === 'summary' && stageInfo.nextStage === 'recipients') return { icon: 'envelope-fill' };
+  const buttonLabelProps = (): { icon?: string; label?: string } => {
+    if (stageInfo.currentStage === 'summary' && stageInfo.nextStage === 'recipients') {
+      return { icon: 'envelope-fill' };
+    }
     switch (stageInfo.nextStage) {
       case 'summary':
         return { icon: 'summary' };
-//      case 'send':
-//        return { icon: 'envelope-fill' };
       default:
         return { label: 'Next' };
     }

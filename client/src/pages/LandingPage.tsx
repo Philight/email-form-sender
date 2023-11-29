@@ -3,28 +3,17 @@ import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useCookies, Cookies } from 'react-cookie';
 import { jwtDecode } from 'jwt-decode';
 
-import {
-  Button,
-  ButtonGroup,
-  Menu,
-  MenuItem,
-  Box,
-  Stack,
-  Container,
-  Typography,
-} from '@mui/material';
+import { ButtonGroup, Stack, Typography } from '@mui/material';
 
 import { useDataContext } from '@contexts/DataContext';
 
 import { NavigationButton } from '@components/interactive/NavigationButton';
-import { Icon } from '@components/graphic';
-import { getMe } from '@api/mailer';
 import { withPageData } from '@utils/hoc';
 
 import { Props } from 'default-types';
 interface PageProps extends Props {}
 
-const LandingPage = (props: PageProps) => {
+const LandingPage = (props: PageProps): JSX.Element | null => {
   const { className } = props;
   const context = useDataContext();
   const formStage = context.formStage;
@@ -34,6 +23,7 @@ const LandingPage = (props: PageProps) => {
 
   const isLoggedIn =
     cookies.access_token && Date.now() < jwtDecode(cookies.access_token).exp * 1000;
+  // eslint-disable-next-line no-console
   console.log('LandingPage cookies', jwtDecode(cookies.access_token));
 
   return (
@@ -52,7 +42,6 @@ const LandingPage = (props: PageProps) => {
               color="gradient"
               size="lg"
               icon="envelope-fill"
-              //              label="Send email"
               link="/form"
               nextStage="recipients"
             />
@@ -64,7 +53,6 @@ const LandingPage = (props: PageProps) => {
                 label="Sign In"
                 link="/login"
                 nextStage="signin"
-                //            onClick={nextStage('signin')}
               />
               <NavigationButton
                 variant="outline"

@@ -1,17 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import {
-  Button,
-  ButtonGroup,
-  Menu,
-  MenuItem,
-  Box,
-  Stack,
-  Container,
-  Typography,
-  Backdrop,
-} from '@mui/material';
+import { Box } from '@mui/material';
 
 import { Envelopes } from '@components/animated/Envelopes';
 import { Layer, Icon } from '@components/graphic';
@@ -22,7 +11,7 @@ interface LayoutProps extends Props {
   Page?: React.FC | React.Component | React.ReactNode;
 }
 
-const FormLayout = ({ Page, ...rest }: LayoutProps) => {
+const FormLayout = ({ Page, ...rest }: LayoutProps): JSX.Element | null => {
   const { className } = rest;
 
   const [{ img, page }, setState] = React.useState({});

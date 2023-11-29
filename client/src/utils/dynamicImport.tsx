@@ -14,8 +14,10 @@ export const dynamicImport = (mapping: StringMap, args?: IArguments): object => 
   const obj: object = {};
 
   for (const key in mapping) {
-    const componentName = mapping[key];
-    obj[key] = lazy(() => import(`../../src/${prefix}/${componentName}${suffix}.tsx`));
+    if (key in mapping) {
+      const componentName = mapping[key];
+      obj[key] = lazy(() => import(`../../src/${prefix}/${componentName}${suffix}.tsx`));
+    }
   }
   return obj;
 };

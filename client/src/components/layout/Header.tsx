@@ -3,14 +3,12 @@ import { AppBar, Toolbar, Typography } from '@mui/material';
 
 import { useDataContext } from '@contexts/DataContext';
 import { NavigationArrow } from '@components/interactive/NavigationArrow';
-import { Icon } from '@components/graphic';
 import { getStageInfo } from '@store/reducers/dataReducer';
-// import { Navigation } from '@components/layout';
 
 import { Props } from 'default-types';
 interface ComponentProps extends Props {}
 
-export const Header = (props: ComponentProps) => {
+export const Header = (props: ComponentProps): JSX.Element | null => {
   const { className } = props;
 
   const context = useDataContext();

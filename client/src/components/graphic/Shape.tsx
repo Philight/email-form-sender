@@ -2,14 +2,13 @@ import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 
 import { Props } from 'default-types';
-
 interface ComponentProps extends Props {
   onClick?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
   width?: number;
   height?: number;
   left?: number;
   bottom?: number;
-  ref?: Ref<HTMLDivElement>;
+  ref?: React.Ref<HTMLDivElement>;
 }
 type Ref = HTMLDivElement;
 

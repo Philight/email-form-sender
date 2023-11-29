@@ -1,31 +1,7 @@
-import React, { useState, useCallback } from 'react';
-import {
-  AppBar,
-  Button,
-  Box,
-  Toolbar,
-  Typography,
-  TextField,
-  FormControl,
-  FormGroup,
-  Paper,
-  Container,
-  Stack,
-  FormHelperText,
-  FormControlLabel,
-  LinearProgress,
-  CircularProgress,
-  FormLabel,
-  TextareaAutosize,
-} from '@mui/material';
-import { useDropzone } from 'react-dropzone';
-import ImageKit from 'imagekit-javascript';
+import React, { useState } from 'react';
+import { FormControl, FormHelperText, FormLabel, TextareaAutosize } from '@mui/material';
 
-import { getTokens } from '@api/imageKit';
-import { Icon } from '@components/graphic';
-import { Image } from '@components/media';
 import { toCapitalCase } from '@utils/string';
-// import { useAPI } from '@utils/hooks';
 
 import { Props } from 'default-types';
 interface ComponentProps extends Props {
@@ -40,7 +16,7 @@ export const TextareaField = ({
   validationErrors,
   onFieldChange,
   disabled,
-}: ComponentProps) => {
+}: ComponentProps): JSX.Element | null => {
   const [isFocused, setFocused] = useState(false);
 
   const setFocus = (state: boolean) => (): void => {

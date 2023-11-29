@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Backdrop } from '@mui/material';
-import { Icon, Layer } from '@components/graphic';
+import { Icon } from '@components/graphic';
 import { Props } from 'default-types';
 
 const ANIM_PULSE = {
@@ -20,7 +20,7 @@ interface ComponentProps extends Props {
   onClick?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
 
-export const Loader = (props: ComponentProps) => {
+export const Loader = (props: ComponentProps): JSX.Element | null => {
   const { className, onClick, style, fullscreen, overlayed } = props;
 
   return (
@@ -35,9 +35,6 @@ export const Loader = (props: ComponentProps) => {
       onClick={onClick}
     >
       <Backdrop className={'loader__background'} open={true} />
-      {/*
-      <Layer className={'loader__background abs-center fill-parent'} />
-*/}
       <Icon
         icon="4-bars"
         isMultiColor

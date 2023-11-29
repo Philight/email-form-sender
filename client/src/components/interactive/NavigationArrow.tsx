@@ -55,9 +55,7 @@ export const NavigationArrow = (props: ComponentProps): JSX.Element | null => {
 
   const navigate = useNavigate();
   const context = useDataContext();
-console.log('currentStage', currentStage)
-console.log('nextStage', nextStage)
-  const handleClick = e => {
+  const handleClick = (e): void => {
     e.preventDefault();
     if (nextStage) {
       context.setFormStage(nextStage);
@@ -104,9 +102,11 @@ console.log('nextStage', nextStage)
       style={style}
     >
       <Icon icon={icon} />
-      {withTooltip && <Box className={['tooltip f-center'].css()}>
-        <span>{stageIndex}</span>
-      </Box>}
+      {withTooltip && (
+        <Box className={['tooltip f-center'].css()}>
+          <span>{stageIndex}</span>
+        </Box>
+      )}
     </IconButton>
   );
 };

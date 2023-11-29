@@ -2,7 +2,7 @@
   "name": "vite-react-tailwind-ts",
   "author": "Filip Lai",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "config": {
     "PORT": "4001",

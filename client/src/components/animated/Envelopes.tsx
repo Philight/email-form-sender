@@ -7,7 +7,12 @@ interface ComponentProps extends Props {
   onClick?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
 
-export const Envelopes = ({ className, children, onClick, style }: ComponentProps) => {
+export const Envelopes = ({
+  className,
+  children,
+  onClick,
+  style,
+}: ComponentProps): JSX.Element | null => {
   function transformOrder({ rotateX, rotateY, rotateZ, x }) {
     return `rotateX(${rotateX}) rotateY(${rotateY}) rotateZ(${rotateZ}) translateX(${x})`;
   }

@@ -5,7 +5,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-const ScrollToTop = ({ children }: Props) => {
+const ScrollToTop = ({ children }: Props): JSX.Element | null => {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);

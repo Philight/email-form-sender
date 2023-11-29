@@ -35,7 +35,7 @@ const ROUTES = {
 const landingLayoutImports = dynamicImport(ROUTE_TO_PAGE.LANDING, { prefix: 'pages' });
 const formLayoutImports = dynamicImport(ROUTE_TO_PAGE.FORM, { prefix: 'pages' });
 
-const App = () => {
+const App = (): JSX.Element | null => {
   return (
     <BrowserRouter basename={PACKAGE_JSON.config.BASENAME}>
       <ScrollToTop>

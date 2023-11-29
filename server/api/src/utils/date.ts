@@ -1,7 +1,6 @@
 const DATE_DELIMITER = '-';
 
-const getDateTime = (date_ob) => {
-//	var date_ob = new Date();
+const getDateTime = (date_ob: Date): Date => {
 	var day = ("0" + date_ob.getDate()).slice(-2);
 	var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 	var year = date_ob.getFullYear();
@@ -12,7 +11,7 @@ const getDateTime = (date_ob) => {
 	return day + DATE_DELIMITER + month + DATE_DELIMITER + year + ' ' + hours + ':' + minutes + ':' + seconds;
 }
 
-const elapsedTime = (date1, date2) => {
+const elapsedTime = (date1, date2): string => {
 	var diff = date2 - date1;
 
 	var diffHours = parseInt(diff / (1000 * 60 * 60), 10); 
@@ -34,14 +33,14 @@ const elapsedTime = (date1, date2) => {
 	return `${diffHours}:${diffMinutes}:${diffSeconds}`;
 }
 
-const formattedDate = (dateObj) => {
+const formattedDate = (dateObj: Date): Date => {
 	var day = ("0" + dateObj.getDate()).slice(-2);
 	var month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
 	var year = dateObj.getFullYear();
 	return day + DATE_DELIMITER + month + DATE_DELIMITER + year;
 }
 
-const getNumericMonth = (monthString) => {
+const getNumericMonth = (monthString): number => {
 	if (monthString == '' || monthString == null) return null;
 	
 	switch (true) {
@@ -72,7 +71,7 @@ const getNumericMonth = (monthString) => {
 	}
 }
 
-const daysBetween = (startDate, endDate) => {
+const daysBetween = (startDate, endDate): number => {
   // The number of milliseconds in all UTC days (no DST)
   const oneDay = 1000 * 60 * 60 * 24;
 

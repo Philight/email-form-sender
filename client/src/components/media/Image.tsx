@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Layer } from '@components/graphic';
-import { Props } from 'default-types';
 
+import { Props } from 'default-types';
 interface ComponentProps extends Props {
   src: string;
   alt?: string;
@@ -11,7 +11,7 @@ interface ComponentProps extends Props {
   isSquare?: boolean;
 }
 
-export const Image = (props: ComponentProps) => {
+export const Image = (props: ComponentProps): JSX.Element | null => {
   const { className, withOverlay, isSquare, src, title, alt } = props;
   return (
     <figure className={['image__c', isSquare && 'square', className].css()}>

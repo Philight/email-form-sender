@@ -38,7 +38,7 @@ export const NavigationButton = (props: ComponentProps): JSX.Element | null => {
   const navigate = useNavigate();
   const context = useDataContext();
 
-  const handleClick = e => {
+  const handleClick = (e): void => {
     e.preventDefault();
     if (onClick) {
       onClick(e);

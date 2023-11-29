@@ -105,8 +105,6 @@ export const initialState: IStateType = {
           required: true,
           type: 'password',
         },
-        /*
-         */
         photo: {
           label: 'Profile Photo',
           required: false,
@@ -151,7 +149,6 @@ export const initialState: IStateType = {
   },
   formData: {},
   formStage: 'landing',
-  //  isLoggedIn: false,
   imageKitTokens: {},
   user: {},
 };

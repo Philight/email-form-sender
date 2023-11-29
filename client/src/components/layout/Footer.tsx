@@ -9,7 +9,7 @@ interface ComponentProps extends Props {}
 const linkFL = 'https://philight.github.io/portfolio/';
 const linkExcalibur = 'https://getexcalibur.com/';
 
-export const Footer = (props: ComponentProps) => {
+export const Footer = (props: ComponentProps): JSX.Element | null => {
   const { className } = props;
 
   return (

@@ -8,7 +8,6 @@ const PORT = parseInt(process.env.PORT, 10) || 80;
 const HOSTNAME = process.env.HOSTNAME;
 const IS_DEBUG = Boolean(process.env.IS_DEBUG) ?? false;
 
-
 exports.sendEmail = async (req, res, next) => {
   try {
     if (IS_DEBUG) message(MODULE, `sendEmail |`, TMessage.INFO);
@@ -19,13 +18,6 @@ exports.sendEmail = async (req, res, next) => {
 console.log('API | sendEmail response');
 console.log(response);
 
-/*
-    const response = got({
-      url: `http://${HOSTNAME}:${PORT}${ROUTES['DATABASE']['ADS']}`,
-      method: 'POST',
-      json: req.body
-    }).json();
-*/
     res.statusMessage = TMessage.SUCCESS;
     res.status(200).json(await response);
 

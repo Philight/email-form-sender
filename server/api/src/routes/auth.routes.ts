@@ -16,7 +16,5 @@ router
     .post('/sign-in', routeInfo({ MODULE }), validateSignInFields, signIn)
     .get('/verify-email', routeInfo({ MODULE }), verifyEmail)
     .post('/me', routeInfo({ MODULE }), getMe)
-//    .post('/sign-in', routeInfo({ MODULE }), validateEmailFields, sendEmail)
-//    .post('/sign-in', routeInfo({ MODULE }), validateEmailFields, sendEmail)
 
 export default router;

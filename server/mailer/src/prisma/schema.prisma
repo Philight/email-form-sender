@@ -25,7 +25,7 @@ model User {
   role RoleEnumType? @default(user)
 
   verified Boolean? @default(false) 
-  verification_code String? @unique
+  verification_code String? @unique @default("")
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

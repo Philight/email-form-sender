@@ -29,7 +29,6 @@ const validationSchema = Joi.object({
 
 export const validateEmailFields = async (req, res, next) => {
   if (IS_DEBUG) message(MODULE, `validateEmailFields |`, TMessage.INFO);
-console.log('validateEmailFields body');
 console.log(req.body);
   const { error: validationErrors } = validationSchema.validate(req.body);
   if (validationErrors) { 

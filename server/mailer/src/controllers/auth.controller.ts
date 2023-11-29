@@ -55,13 +55,15 @@ export const registerHandler = async (
       await new Email({ user, redirectUrl }).sendVerificationCode();
       res(null, { status: 'success', message: 'Email verification code sent. Check your inbox for a confirmation code.' });
     } catch (error: unknown) {
-      await updateUser({ id: user.id }, { verification_code: null });
+      await updateUser({ id: user.id }, { verification_code: "" });
       res({
         code: grpc.status.INTERNAL,
         message: error.message,
       });
     }
   } catch (err: unknown) {
+    console.error('MAILER | registerHandler err', err);
+
     if (err.code === 'P2002') {
       res({
         code: grpc.status.ALREADY_EXISTS,
@@ -80,7 +82,6 @@ export const loginHandler = async (
   res: grpc.sendUnaryData<SignInUserResponse__Output>
 ) => {
   try {
-    console.log('MAILER | loginHandler req', req.request);
     // Get the user from the collection
     const user = await findUser({ email: req.request.email });
 
@@ -101,19 +102,6 @@ export const loginHandler = async (
 
     // Create the Access and refresh Tokens
     const { access_token, refresh_token } = await signTokens(user);
-
-    // Validate the Refresh token
-    const decodedAcc = verifyJwt<{ sub: string }>(
-      access_token,
-      'accessTokenPublicKey'
-    );
-    const decodedRef = verifyJwt<{ sub: string }>(
-      refresh_token,
-      'refreshTokenPublicKey'
-    );
-
-    console.log('accessTokenPublicKey', decodedAcc)
-    console.log('refreshTokenPublicKey', decodedRef)
 
     // Send Access Token
     res(null, {
@@ -215,7 +203,7 @@ export const verifyEmailHandler = async (
 
     await updateUser(
       { id: user.id },
-      { verified: true, verification_code: null }
+      { verified: true, verification_code: "" }
     );
 
     res(null, { status: 'success', message: 'Email verified successfully' });

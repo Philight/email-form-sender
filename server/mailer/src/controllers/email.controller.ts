@@ -9,10 +9,7 @@ export const sendEmailHandler = async (
   res: grpc.sendUnaryData<GenericResponse>
 ) => {
   try {
-
-    console.log('MAILER | sendEmailHandler req', req.request);
     const user = await deserializeUser(req.request.access_token);
-    console.log('MAILER | sendEmailHandler user', user);
     if (!user) {
       res({
         code: grpc.status.NOT_FOUND,

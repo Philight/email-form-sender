@@ -13,6 +13,8 @@ export interface IStateType {
     [key: string]: string | string[];
   };
   formStage: 'landing' | 'signin' | 'signup' | 'recipients' | 'body' | 'pictures' | 'summary';
+  imageKitTokens: unknown;
+  user: unknown;
 }
 
 const RECIPIENTS_FIELDS = {

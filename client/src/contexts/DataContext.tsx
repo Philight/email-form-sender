@@ -1,8 +1,6 @@
 import React, { PropsWithChildren, useReducer, createContext, useContext } from 'react';
-import dataReducer from '@store/reducers/dataReducer';
+import { dataReducer } from '@store/reducers/dataReducer';
 import { initialState, IStateType } from '@store/reducers/initialState';
-
-// import { arrayUniqueValues } from '@utils/array';
 
 export const DataContext = createContext();
 

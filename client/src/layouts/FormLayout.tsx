@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import { Envelopes } from '@components/animated/Envelopes';
-import { Layer, Icon } from '@components/graphic';
+import { Layer } from '@components/graphic';
 import { Header, Footer } from '@components/layout';
 
 import { Props } from 'default-types';

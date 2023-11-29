@@ -4,7 +4,6 @@ import { CookiesProvider } from 'react-cookie';
 
 const LandingLayout = lazy(() => import('@layouts/LandingLayout'));
 const FormLayout = lazy(() => import('@layouts/FormLayout'));
-// const HomeLayout = lazy(() => import('@layouts/HomeLayout'));
 
 const StyleGuide = lazy(() => import('@pages/StyleGuide'));
 
@@ -13,7 +12,6 @@ import { Loader } from '@components/graphic';
 import ScrollToTop from '@components/util/ScrollToTop';
 
 import PACKAGE_JSON from 'ROOT/package.json';
-// import { CONSTANTS } from '@data/CONSTANTS';
 import { dynamicImport } from '@utils/dynamicImport';
 
 const ROUTE_TO_PAGE = {

@@ -1,3 +1,5 @@
+import { IStateType } from './initialState';
+
 export const STAGES = {
   FORM: ['landing', 'recipients', 'body', 'attachments', 'summary', 'recipients'],
   LOGIN: ['landing', 'signin', 'recipients', 'body', 'attachments', 'summary', 'recipients'],
@@ -13,7 +15,15 @@ export const STAGES = {
   ],
 };
 
-export const getStageInfo = (stageName: string) => {
+export const getStageInfo = (
+  stageName: string,
+): {
+  stageName: string;
+  stageType: string;
+  stageIndex: string;
+  prevStage: number | null;
+  nextStage: number | null;
+} => {
   const stageInfo = {
     currentStage: stageName,
   };
@@ -29,7 +39,7 @@ export const getStageInfo = (stageName: string) => {
   }
 };
 
-const dataReducer = (state, action) => {
+export const dataReducer = (state, action): IStateType => {
   const { type, payload } = action;
   const { formStage, user, updatedFields } = payload;
 
@@ -60,5 +70,3 @@ const dataReducer = (state, action) => {
       throw new Error(`No case for type ${type} found in dataReducer.`);
   }
 };
-
-export default dataReducer;

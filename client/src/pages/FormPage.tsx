@@ -26,7 +26,7 @@ const FormPage = (props: PageProps): JSX.Element | null => {
   const fields = pageData?.fields ?? {};
 
   // Cookies
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies<Cookies>();
   // Temporary local state
   const [values, setValues] = useState({});
   // Create state for form errors:

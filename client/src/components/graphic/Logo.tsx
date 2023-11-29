@@ -9,7 +9,7 @@ interface ComponentProps extends Props {
   onClick?: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
 
-export const Logo = ({ className, children, link, onClick }: Props): JSX.Element | null => {
+export const Logo = ({ className, link, onClick }: ComponentProps): JSX.Element | null => {
   return (
     <figure className={['logo__c ', className].css()} onClick={onClick}>
       {link && <Link href={link} className="fill-absolute" />}

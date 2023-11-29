@@ -13,7 +13,7 @@ export const signUpSchema = yup.object().shape({
   photo: yup.string().url(),
 });
 
-const isEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+const isEmail = (value): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 export const recipientsSchema = yup.object().shape({
   subject: yup.string().required(),
@@ -24,7 +24,7 @@ export const recipientsSchema = yup.object().shape({
     .test(
       'cc',
       'Invalid email address/es, must be separated by " ; "',
-      value => value == null || value == undefined || (value && value.split(';').every(isEmail)), // optional
+      value => value === null || value === undefined || (value && value.split(';').every(isEmail)), // optional
     ),
 });
 
